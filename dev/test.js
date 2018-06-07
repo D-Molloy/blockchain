@@ -188,27 +188,75 @@ const bitcoin = new Blockchain();
 
 
 ///    testing the hashBlock method
-//note that the hash will be the same every time unless a character is changed, then it will be completely different
-const previousBlockHash = "1121`244151ewdafsf";
-// currentBlockData is all the transactions in the block
-const currentBlockData = [
-    {
-        amount: 10,
-        sender: "214ureufu0asdfd",
-        recipient: "cvjvzijpbixbxzcvbx"
-    },
-    {
-        amount: 30,
-        sender: "asdfafasfa",
-        recipient: "retwqhbrasgdcv"
-    },
-    {
-        amount: 100,
-        sender: "4wqygadfsgvfbxcb",
-        recipient: "ewtywwqaesgfjsfgu"
-    }
-]
+// //note that the hash will be the same every time unless a character is changed, then it will be completely different
+// const previousBlockHash = "1121`244151ewdafsf";
+// // currentBlockData is all the transactions in the block
+// const currentBlockData = [
+//     {
+//         amount: 10,
+//         sender: "214ureufu0asdfd",
+//         recipient: "cvjvzijpbixbxzcvbx"
+//     },
+//     {
+//         amount: 30,
+//         sender: "asdfafasfa",
+//         recipient: "retwqhbrasgdcv"
+//     },
+//     {
+//         amount: 100,
+//         sender: "4wqygadfsgvfbxcb",
+//         recipient: "ewtywwqaesgfjsfgu"
+//     }
+// ]
 
-const nonce = 100
-console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
-//f9ee7c6c1e17e7e9ecad421ec30aa58d00dd216bfb36856bca1c9b5ae503fa79
+// const nonce = 100
+// console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce));
+// //f9ee7c6c1e17e7e9ecad421ec30aa58d00dd216bfb36856bca1c9b5ae503fa79
+
+
+
+///       TESTING THE PROOF OF WORK
+
+// const previousBlockHash = "1121`244151ewdafsf";
+// const currentBlockData = [
+//     {
+//         amount: 10,
+//         sender: "214ureufu0asdfd",
+//         recipient: "cvjvzijpbixbxzcvbx"
+//     },
+//     {
+//         amount: 30,
+//         sender: "asdfafasfa",
+//         recipient: "retwqhbrasgdcv"
+//     },
+//     {
+//         amount: 100,
+//         sender: "4wqygadfsgvfbxcb",
+//         recipient: "ewtywwqaesgfjsfgu"
+//     }
+// ]
+
+// console.log(bitcoin.proofOfWork(previousBlockHash, currentBlockData))
+// // 36914 - it took this many iterations to find the hash below
+// // THIS NUMBER IS THE SAME EVERYTIME YOU RUN THE PROOF OF WORK WITH THE SAME PARAMs
+// // 00004b0a740c2a267969339aa25fe832dd569c7037365b02822a88aaa0368c9
+
+// //pass the nonce from above  into hashBlock
+// console.log(bitcoin.hashBlock(previousBlockHash, currentBlockData, 36914));
+// // this returns a hash that has four 0s on the first try because we know the nonce (note its the same as the h above)
+// // 000004b0a740c2a267969339aa25fe832dd569c7037365b02822a88aaa0368c9
+
+
+
+///       TESTING THE GENESIS BLOCK
+// console.log(bitcoin)
+// this is the genesis block:
+//Blockchain {
+//     chain:
+//     [ { index: 1,
+//         timestamp: 1528348295987,
+//         transactions: [],
+//         nonce: 100,
+//         hash: '',
+//         previousBlockHash: '' } ],
+//    pendingTransactions: [] }
