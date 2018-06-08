@@ -19,7 +19,7 @@ function Blockchain() {
     // since its the first we don't have any of the needed parameters.  No PoW (so no nonce), no previous block so no previous blockhash or hash
     // fill in default values - can be whatever we want
     // only pass in arbitrary values for the genesis block
-    this.createNewBlock(100, '', '')
+    this.createNewBlock(100, '0', '0')
 
 }
 
@@ -67,7 +67,7 @@ Blockchain.prototype.createNewTransaction = function (amount, sender, recipient)
 
     //want to return what block we will be able to find the new transaction in.  
     //we return the index of the last block in our chain + 1 because that is our new Block index that newTransaction will be in
-    return this.getLastBlock()['index']
+    return this.getLastBlock()['index'] + 1;
 }
 
 //hashBlock takes in a block from the blockchain and returns a hash of the data
