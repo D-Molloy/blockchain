@@ -1,5 +1,5 @@
 const sha256 = require('sha256');
-
+const currentNodeUrl = process.argv[3]
 function Blockchain() {
     //meat of the chain is stored
     // all the block created/mined will be stored here
@@ -12,7 +12,12 @@ function Blockchain() {
     // once validate they are added to the blockchain when a new block is created
     // when createNewTransaction is invoked, the newTransaction is push into the pendingTransactions array
     // then when createNewBlock is invoked, the pendingTransactions are added to the chain permanently
-    this.pendingTransactions = []
+    this.pendingTransactions = [];
+
+    //coming in from as the last parameter in the individual node start scripts in package.json 
+    this.currentNodeUrl = currentNodeUrl;
+    //filling up an array of all the node urls in the network
+    this.networkNodes = [];
 
     // GENESIS BLOCK
     //every chain needs to have a genesis block (the first block)
