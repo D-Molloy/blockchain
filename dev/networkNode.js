@@ -106,15 +106,23 @@ app.post("/register-and-broadcast-node", function(req, res){
 })
 
 
-//register a node with the network
-// receives new nodes from the above route
+//register a node with the network based on the broadcast sent in the above route
+// the node that receives the request needs to register the new node
 // 2- once all nodes register the new nodes ...
 app.post("/register-node", function(req, res){
+    const newNodeUrl = req.body.newNodeUrl;
+    // if the node doesn't exist this var will be true
+    const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(newNodeUrl) === -1;
+    //making sure the node being registered isn't the currentNode
+    const notCurrentNode = bitcoin.currentNodeUrl !== newNodeUrl;
+    // Registering the newNodeUrl with the node that receives the request if it's not present && not the node being registered
+    if(nodeNotAlreadyPresent && notCurrentNode) bitcoin.networkNodes.push(newNodeUrl)
+    res.json({ note: "New node registered successfully."})
 
 })
 
 //register multiple nodes at once
-//  3- the node that received the original request makes a post request to this route with on the original server of the original requester with the URL data of all the other nodes
+//  3- the node that received the original request makes a post request to this route with the original server of the original requester with the URL data of all the other nodes
 app.post("/register-nodes-bulk", function(req, res){
 
 })
