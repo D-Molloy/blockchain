@@ -1,4 +1,7 @@
 const sha256 = require('sha256');
+const uuid = require("uuid/v1");
+
+
 const currentNodeUrl = process.argv[3]
 function Blockchain() {
     //meat of the chain is stored
@@ -65,15 +68,23 @@ Blockchain.prototype.createNewTransaction = function (amount, sender, recipient)
     const newTransaction = {
         amount,
         sender,
-        recipient
+        recipient,
+        transactionId: uuid().split("-").join("")
     }
+
+    return newTransaction;
+}
+///  every time a new transaction is created, the request needs to be made to /transaction/broadcast which will ping POST /transaction on every node in the network
+Blockchain.prototype.addTransactionToPendingTransactions = function(transObj){
     //push the newTransaction into the pendingTransactions array
-    this.pendingTransactions.push(newTransaction)
+    this.pendingTransactions.push(transObj)
 
     //want to return what block we will be able to find the new transaction in.  
     //we return the index of the last block in our chain + 1 because that is our new Block index that newTransaction will be in
     return this.getLastBlock()['index'] + 1;
 }
+
+
 
 //hashBlock takes in a block from the blockchain and returns a hash of the data
 //  all of the parameters come from a single block
@@ -120,6 +131,8 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
     // THIS NUMBER IS THE SAME EVERY TIME YOU RUN THE PROOF OF WORK WITH THE SAME PARAMs
     return nonce;
 }
+
+
 
 
 module.exports = Blockchain;

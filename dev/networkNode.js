@@ -30,16 +30,45 @@ app.get('/blockchain', function (req, res) {
     //send the whole blockchain
     res.send(bitcoin);
 });
+// {
+// 	"amount": 100,
+// 	"sender": "ADOAFHEWMEFASDMAF",
+// 	"recipient": "NBXNGDGRRESGF"
+// }
 
-
-//create a new transaction in the chain
+//receive a newTransaction on each node from /transaction/broadcast and add it to the node's pending transactions array
 app.post("/transaction", function (req, res) {
-    const blockIndex = bitcoin.createNewTransaction(req.body.amount, req.body.sender, req.body.recipient);
-    //createNewTransaction returns the block number the transaction will be added to
-    res.json({
-        note: `Transaction will be added in block ${blockIndex}.`
+    const newTransaction = req.body;
+    const blockIndex = bitcoin.addTransactionToPendingTransactions(newTransaction)
+    res.json({ note: `Transaction will be added in block ${blockIndex}.`})
+});
+
+///  every time a new transaction is created, the request needs to be made to  /transaction/broadcast which will ping POST /transaction on every node in the network
+// 1- create a new transactions
+// 2 - broadcast the transaction to every node
+app.post("/transaction/broadcast", function(req, res){
+    const newTransaction = bitcoin.createNewTransaction(req.body.amount, req.body.sender, req.body.recipient);
+    bitcoin.addTransactionToPendingTransactions(newTransaction);
+    
+    const requestPromises = [];
+    bitcoin.networkNodes.forEach( networkNodeUrl =>{
+        const requestOptions = {
+            uri: networkNodeUrl + "/transaction",
+            method: "POST",
+            body: newTransaction,
+            json: true
+        };
+
+        requestPromises.push(rp(requestOptions))
+    })
+
+    Promise.all(requestPromises)
+    .then(data =>{
+        res.json({ note: "Transaction created and broadcast successfully."})
     });
 });
+
+
 
 //  mine/create a new block - doing a PoW so we can create a new block
 app.get("/mine", function (req, res) {
@@ -148,12 +177,7 @@ app.post("/register-nodes-bulk", function (req, res) {
         const nodeNotAlreadyPresent = bitcoin.networkNodes.indexOf(networkNodeUrl) == -1
         const notCurrentNode = bitcoin.currentNodeUrl !== networkNodeUrl;
         // ... and if it's not already in the networkNodes array and not the current node, add it to this nodes networkNodes array 
-        // if (nodeNotAlreadyPresent && notCurrentNode) bitcoin.networkNodes.push(networkNodeUrl);
-        if (nodeNotAlreadyPresent){
-            if(notCurrentNode){
-                bitcoin.networkNodes.push(networkNodeUrl);
-            } 
-        } 
+        if (nodeNotAlreadyPresent && notCurrentNode) bitcoin.networkNodes.push(networkNodeUrl);
     })
     res.json({
         note: "bitcoin.networkNodes for "+ bitcoin.currentNodeUrl +":" +bitcoin.networkNodes
