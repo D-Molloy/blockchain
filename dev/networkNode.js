@@ -30,11 +30,6 @@ app.get('/blockchain', function (req, res) {
     //send the whole blockchain
     res.send(bitcoin);
 });
-// {
-// 	"amount": 100,
-// 	"sender": "ADOAFHEWMEFASDMAF",
-// 	"recipient": "NBXNGDGRRESGF"
-// }
 
 //receive a newTransaction on each node from /transaction/broadcast and add it to the node's pending transactions array
 app.post("/transaction", function (req, res) {
@@ -69,7 +64,7 @@ app.post("/transaction/broadcast", function(req, res){
 });
 
 
-
+// anytime we mine a new block, we need to pick a block to mine it.  this node gets a request to /mine - does the PoW and adds the pengingTransactions, and then broadcasts the new block by hitting every other node via /receive-new-block
 //  mine/create a new block - doing a PoW so we can create a new block
 app.get("/mine", function (req, res) {
     const lastBlock = bitcoin.getLastBlock();
@@ -82,15 +77,47 @@ app.get("/mine", function (req, res) {
     //need to get the nonce for createNewBlock
     const nonce = bitcoin.proofOfWork(previousBlockHash, currentBlockData);
     const blockHash = bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
-    //when you mine a new block in the real world, you get some bitcoin, so we have to create a new transaction
-    // when the sender address is 00, you know it a tip for mining a new bitcoin
-    // the recipient is this node in the blockchain - need to create an address for this node (UUID)
-    bitcoin.createNewTransaction(12.5, "00", nodeAddress)
     const newBlock = bitcoin.createNewBlock(nonce, previousBlockHash, blockHash);
-    res.json({
-        note: "New block mined successfully",
-        block: newBlock
+
+    //broadcasting the new block to the network
+    const requestPromises = [];
+    bitcoin.networkNodes.forEach(networkNodeUrl => {
+        const requestOptions = {
+            uri: networkNodeUrl + "/receive-new-block",
+            method: "POST",
+            body: { newBlock: newBlock},
+            json: true
+        };
+
+        requestPromises.push(rp(requestOptions))
+    });
+
+    Promise.all(requestPromises)
+    .then(data => {
+            //when you mine a new block in the real world, you get some bitcoin, so we have to create a new transaction
+            // when the sender address is 00, you know it a tip for mining a new bitcoin
+            // the recipient is this node in the blockchain - need to create an address for this node (UUID)
+            // we need to broadcast this mining reward transaction to the entire network
+        const requestOptions = {
+            uri: bitcoin.currentNodeUrl + "/transaction/broadcast",
+            method: "POST",
+            body: {
+                amount: 12.5,
+                sender: "00",
+                recipient: nodeAddress
+            },
+            json: true
+        };
+
+        return rp(requestOption)
     })
+    .then(data =>{
+        res.json({
+            note: "New block mined and broadcast successfully",
+            block: newBlock
+        })
+    })
+
 })
 
 ///     BLOCK REGISTRATION ROUTES
