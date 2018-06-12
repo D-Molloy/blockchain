@@ -16,5 +16,5 @@ Note: npm run node_[#] scripts have been setup to start nodes on ports 3001-3005
 Make a POST request to http://localhost:3001/register-and-broadcast-node with the following data attached to the body:
 
 {
-	""newNodeUrl": "http://localhost:3002"": "http://localhost:[PORT NUMBER TO ADD]"
+	"newNodeUrl": "http://localhost:3002"
 }

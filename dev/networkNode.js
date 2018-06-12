@@ -109,7 +109,7 @@ app.get("/mine", function (req, res) {
             json: true
         };
 
-        return rp(requestOption)
+        return rp(requestOptions)
     })
     .then(data =>{
         res.json({
