@@ -64,7 +64,7 @@ app.post("/transaction/broadcast", function(req, res){
 });
 
 
-// anytime we mine a new block, we need to pick a block to mine it.  this node gets a request to /mine - does the PoW and adds the pengingTransactions, and then broadcasts the new block by hitting every other node via /receive-new-block
+// anytime we mine a new block, we need to pick a block to mine it.  this node gets a request to /mine - does the PoW and adds the pendingTransactions, and then broadcasts the new block by hitting every other node via /receive-new-block
 //  mine/create a new block - doing a PoW so we can create a new block
 app.get("/mine", function (req, res) {
     const lastBlock = bitcoin.getLastBlock();
@@ -120,11 +120,43 @@ app.get("/mine", function (req, res) {
 
 })
 
+//  we receive a new block thats broadcast
+app.post("/receive-new-block", function(req, res){
+    const newBlock = req.body.newBlock;
+    // need to check that this block is legit - need to check the hashes
+    const lastBlock = bitcoin.getLastBlock();
+    //if this is true, its legit
+    const correctHash = lastBlock.hash === newBlock.previousBlockHash;
+    //also want to make sure the newBlock has the correct index
+    const correctIndex = lastBlock["index"] + 1 === newBlock["index"];
+
+    //if block is legit, add it to the chain.  If not, reject it
+    if (correctHash && correctIndex){
+        bitcoin.chain.push(newBlock)
+        //since we added the new block to the chain, we have to clear out the pending transactions
+        bitcoin.pendingTransactions = []
+
+        res.json({
+            note: "New block received and accepted.",
+            newBlock: newBlock
+        })
+    } else {
+        //if the newblock is not legit, all we do is send back a response saying it was rejected
+        res.json({
+            note: "New block rejected.",
+            newBlock: newBlock
+        })
+    }
+
+
+})
+
+
 ///     BLOCK REGISTRATION ROUTES
 
 // register a node and broadcast that node to the whole network by making a POST request to /register-node (below)
 // 1 - this route is hit by a non-network node that wants to be added with the data of the new URL.  It is registered on the node that received it, and then broadcast to the other network nodes via the /register-node route
-app.post("/register-and-broadcast-node", function (req, res) {
+app.post("/register-and-broadcast-node", function(req, res) {
     const newNodeUrl = req.body.newNodeUrl;
     // Registering the request URL of the new node into the this node's networkNodes array if it doesn't already exist
     if (bitcoin.networkNodes.indexOf(newNodeUrl) == -1 && bitcoin.currentNodeUrl !== newNodeUrl) bitcoin.networkNodes.push(newNodeUrl)
