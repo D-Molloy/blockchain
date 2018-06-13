@@ -132,7 +132,44 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
     return nonce;
 }
 
+// used in the CONSENSUS ALGORITHM 
 
+//  returns whether the blockchain arg is valid or not - do that by comparingthe hashes of the current blocks `hash` and `previousBlockHash`
+Blockchain.prototype.chainIsValid = function(blockchain){
+  let validChain = true;
+    //start at `i` = 1 because we check the genesis block down below
+    for(let i = 1; i <blockchain.length; i++){
+        const currentBlock = blockchain[i];
+        const previousBlock = blockchain[i - 1];
 
+        //compare the previousBlockHash on currentBlock and the hash on the previous block
+        //if the below is true, the chain is not valid
+        if (currentBlock["previousBlockHash"] !== previousBlock["hash"]) validChain = false;
+        
+        //NEED TO CHECK THE DATA!  Every single block must have the correct data!
+        //just rehash the current block, and if the generated hash starts with 4x 0s then the data is valid
+        //reference `currentBlockData` in the /mine route for info on the object we're passing in as 2nd arg
+        const blockHash = this.hashBlock(previousBlock["hash"], { transactions: currentBlock["transactions"], index: currentBlock["index"]}, currentBlock["nonce"]);
+        if(blockHash.substring(0,4) !== "0000") validChain = false;
+  }
+
+  //  GENESIS BLOCK CHECK
+  const genesisBlock = blockchain[0];
+  // need to save the default args from above (this.createNewBlock(100, '0', '0'))
+  const correctNonce = genesisBlock["nonce"] === 100;
+  const correctPreviousBLockHash = genesisBlock["previousBlockHash"] === "0";
+  const correctHash = genesisBlock["hash"] === "0";
+  const correctTransactions = genesisBlock["transactions"].length === 0;
+
+  if (!correctNonce || !correctPreviousBLockHash || !correctHash || !correctTransactions) validChain = false;
+
+  return validChain;
+}
+///  CONSENSUS ALGORITHM -an algorithm that allows the network to agree upon what the correct data in the chain is
+//  if something bad/malicious happens on a specific transaction in a chain, you need a way to confirm the data
+// provide for a way to compare one node with all other nodes on the network
+// This method implements the LONGEST CHAIN RULE - . looks at one node's blockchain and compares the lengths of the chains on other nodes.  If the requester is longer than the longest chain in the network, than the requesters block is replaced by the long one
+//  longest one has the most work in it - the whole network contributed to it
+//  Used by the bitcoin blockchain network
 
 module.exports = Blockchain;
