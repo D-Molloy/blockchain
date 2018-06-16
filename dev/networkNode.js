@@ -252,6 +252,70 @@ app.post("/register-nodes-bulk", function (req, res) {
     })
 })
 
+
+//  CONSENSUS ALGORITHM -an algorithm that allows the network to agree upon what the correct data in the chain is
+//  if something bad/malicious happens on a specific transaction in a chain, you need a way to confirm the data
+// provide for a way to compare one node with all other nodes on the network
+// This method implements the LONGEST CHAIN RULE - . looks at one node's blockchain and compares the lengths of the chains on other nodes.  If the requester is longer than the longest chain in the network, than the requesters block is replaced by the long one
+//  longest one has the most work in it - the whole network contributed to it
+//  Used by the bitcoin blockchain network
+//want to make a request to every node in the chain to get their copies opf the blockchain and compare them to the copy of chain thats hosted on this node
+app.get("/consensus", function(req, res){
+    const requestPromises = [];
+    bitcoin.networkNodes.forEach(networkNodeUrl => {
+        const requestOptions = {
+            uri: networkNodeUrl + "/blockchain",
+            method: "GET",
+            json: true
+        };
+
+        // collect all the requests for the blockains for every other node into an array
+       requestPromises.push(rp(requestOptions))
+    });
+
+    Promise.all(requestPromises)
+    .then(blockchains =>{
+        //blockchains is an array of every blockchain in the network
+        const currentChainLength = bitcoin.chain.length;
+        let maxChainLength = currentChainLength;
+        //the following vars are only used if we find a longer chain
+        let newLongestChain = null;
+        let newPendingTransactions = null;
+
+        //trying to find a longer chain in the blockchain
+        blockchains.forEach(blockchain => {
+            if(blockchain.chain.length > currentChainLength) {
+                maxChainLength = blockchain.chain.length;
+                newLongestChain = blockchain.chain;
+                newPendingTransactions = blockchain.pendingTransactions;
+            };
+        });
+        
+
+        // if there is no new longest chain (ie the current chain is the longest)  || if there IS a new longest chain && the longest chain IS NOT valid) then we DON't want to replace the chain on this node
+        if(!newLongestChain || (newLongestChain && !bitcoin.chainIsValid(newLongestChain))) {
+            res.json({
+                note: "Current Chain has not been replaced.",
+                chain: bitcoin.chain
+            })
+            //ELSE IF there IS a new longest chain && that chain IS valid, then we want to replace the chain on the current node with the newLongestChain 
+            //but the below statement can just be an ELSE statement (commented else if out just to be more clear on whats happening)
+        //  } else if (newLongestChain && bitcoin.chainIsValid(newLongestChain)){
+        } else {
+            bitcoin.chain = newLongestChain;
+            bitcoin.pendingTransactions = newPendingTransactions;
+
+            res.json({
+                note: "This chain has been replaced.",
+                chain: bitcoin.chain
+            });
+        }
+    })
+})
+
+
+
+
 ////////////////////////////////
 app.listen(PORT, function () {
     console.log("Listening on PORT: " + PORT)
