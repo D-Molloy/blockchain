@@ -260,3 +260,157 @@ const bitcoin = new Blockchain();
 //         hash: '',
 //         previousBlockHash: '' } ],
 //    pendingTransactions: [] }
+
+
+///       TESTING THE chainIsValid method
+
+
+const bc1 = {
+    "chain": [{
+            "index": 1,
+            "timestamp": 1529116510769,
+            "transactions": [],
+            "nonce": 100,
+            "hash": "0",
+            "previousBlockHash": "0"
+        },
+        {
+            "index": 2,
+            "timestamp": 1529116617800,
+            "transactions": [],
+            "nonce": 18140,
+            "hash": "0000b9135b054d1131392c9eb9d03b0111d4b516824a03c35639e12858912100",
+            "previousBlockHash": "0"
+        },
+        {
+            "index": 3,
+            "timestamp": 1529116840631,
+            "transactions": [{
+                    "amount": 12.5,
+                    "sender": "00",
+                    "recipient": "e3f38120710d11e892ed3b8ca8325b94",
+                    "transactionId": "240135a0710e11e892ed3b8ca8325b94"
+                },
+                {
+                    "amount": 12.5,
+                    "sender": "00",
+                    "recipient": "e3f38120710d11e892ed3b8ca8325b94",
+                    "transactionId": "8d4db100710e11e892ed3b8ca8325b94"
+                },
+                {
+                    "amount": 30,
+                    "sender": "0fadfasdsfafdasfadsfasd0",
+                    "recipient": "e3f38120710d11e892ed3b8ca8325b94",
+                    "transactionId": "99416240710e11e892ed3b8ca8325b94"
+                },
+                {
+                    "amount": 100,
+                    "sender": "0fdhbszfnjgdjaegesd0",
+                    "recipient": "eqewyeyrfbznvb",
+                    "transactionId": "a12caaa0710e11e892ed3b8ca8325b94"
+                }
+            ],
+            "nonce": 20365,
+            "hash": "000010b7ebeda4bfe675337294afc3e503de109f8dd4502cc401e60678580a0a",
+            "previousBlockHash": "0000b9135b054d1131392c9eb9d03b0111d4b516824a03c35639e12858912100"
+        },
+        {
+            "index": 4,
+            "timestamp": 1529116913833,
+            "transactions": [{
+                    "amount": 12.5,
+                    "sender": "00",
+                    "recipient": "e3f38120710d11e892ed3b8ca8325b94",
+                    "transactionId": "a8909a90710e11e892ed3b8ca8325b94"
+                },
+                {
+                    "amount": 40,
+                    "sender": "gdhsdjbcxnbncbcxz0",
+                    "recipient": "1234567890",
+                    "transactionId": "c9947270710e11e892ed3b8ca8325b94"
+                },
+                {
+                    "amount": 50,
+                    "sender": "gdhsdjbcxnbncbcxz0",
+                    "recipient": "1234567890",
+                    "transactionId": "cbfb3940710e11e892ed3b8ca8325b94"
+                },
+                {
+                    "amount": 60,
+                    "sender": "gdhsdjbcxnbncbcxz0",
+                    "recipient": "1234567890",
+                    "transactionId": "ce546b80710e11e892ed3b8ca8325b94"
+                },
+                {
+                    "amount": 70,
+                    "sender": "gdhsdjbcxnbncbcxz0",
+                    "recipient": "1234567890",
+                    "transactionId": "d0b0f920710e11e892ed3b8ca8325b94"
+                }
+            ],
+            "nonce": 58629,
+            "hash": "00002f39429e37141dfbd4fd0a781ec39dfc4371ad98dbabbde44cd98eb0d3a6",
+            "previousBlockHash": "000010b7ebeda4bfe675337294afc3e503de109f8dd4502cc401e60678580a0a"
+        },
+        {
+            "index": 5,
+            "timestamp": 1529117116959,
+            "transactions": [{
+                "amount": 12.5,
+                "sender": "00",
+                "recipient": "e3f38120710d11e892ed3b8ca8325b94",
+                "transactionId": "d43257b0710e11e892ed3b8ca8325b94"
+            }],
+            "nonce": 225816,
+            "hash": "000068b005fdc985078bb424fa37a2a95143c84679537e927fba7f0147924f7b",
+            "previousBlockHash": "00002f39429e37141dfbd4fd0a781ec39dfc4371ad98dbabbde44cd98eb0d3a6"
+        },
+        {
+            "index": 6,
+            "timestamp": 1529117120180,
+            "transactions": [{
+                "amount": 12.5,
+                "sender": "00",
+                "recipient": "e3f38120710d11e892ed3b8ca8325b94",
+                "transactionId": "4d451020710f11e892ed3b8ca8325b94"
+            }],
+            "nonce": 36914,
+            "hash": "00000473b695b86f1e9c9a7ff2ec8cc6f209bd4c9e7d82729e275e401ec75845",
+            "previousBlockHash": "000068b005fdc985078bb424fa37a2a95143c84679537e927fba7f0147924f7b"
+        },
+        {
+            "index": 7,
+            "timestamp": 1529117123744,
+            "transactions": [{
+                "amount": 12.5,
+                "sender": "00",
+                "recipient": "e3f38120710d11e892ed3b8ca8325b94",
+                "transactionId": "4f306560710f11e892ed3b8ca8325b94"
+            }],
+            "nonce": 31353,
+            "hash": "0000fde9cfbd0f79085e46327d2a476ee0a403bdd8e686ad95b31cca1f24f45f",
+            "previousBlockHash": "00000473b695b86f1e9c9a7ff2ec8cc6f209bd4c9e7d82729e275e401ec75845"
+        }
+    ],
+    "pendingTransactions": [{
+        "amount": 12.5,
+        "sender": "00",
+        "recipient": "e3f38120710d11e892ed3b8ca8325b94",
+        "transactionId": "51501110710f11e892ed3b8ca8325b94"
+    }],
+    "currentNodeUrl": "http://localhost:3001",
+    "networkNodes": []
+};
+
+console.log("BlockChain is valid:",bitcoin.chainIsValid(bc1.chain))
+// BlockChain is valid: true
+
+
+//change one hash to see if it unvalidates the block
+// BlockChain is valid: false
+
+// can also mess with transaction data - change one character in a transaction and it will return false
+// BlockChain is valid: false
+
+//changing the nonce of the Genesis block
+// BlockChain is valid: false

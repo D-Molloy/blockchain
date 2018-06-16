@@ -121,6 +121,7 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
     // continue getting new hashes until we meet the PoW criteria
     while (hash.substring(0, 4) !== "0000"){
         nonce++;
+
         // run this.hashBlock trying to get a hash that starts with 0000
         hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
     }
@@ -136,7 +137,7 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
 
 //  returns whether the blockchain arg is valid or not - do that by comparingthe hashes of the current blocks `hash` and `previousBlockHash`
 Blockchain.prototype.chainIsValid = function(blockchain){
-  let validChain = true;
+    let validChain = true;
     //start at `i` = 1 because we check the genesis block down below
     for(let i = 1; i <blockchain.length; i++){
         const currentBlock = blockchain[i];
@@ -151,19 +152,24 @@ Blockchain.prototype.chainIsValid = function(blockchain){
         //reference `currentBlockData` in the /mine route for info on the object we're passing in as 2nd arg
         const blockHash = this.hashBlock(previousBlock["hash"], { transactions: currentBlock["transactions"], index: currentBlock["index"]}, currentBlock["nonce"]);
         if(blockHash.substring(0,4) !== "0000") validChain = false;
-  }
 
-  //  GENESIS BLOCK CHECK
-  const genesisBlock = blockchain[0];
-  // need to save the default args from above (this.createNewBlock(100, '0', '0'))
-  const correctNonce = genesisBlock["nonce"] === 100;
-  const correctPreviousBLockHash = genesisBlock["previousBlockHash"] === "0";
-  const correctHash = genesisBlock["hash"] === "0";
-  const correctTransactions = genesisBlock["transactions"].length === 0;
+        console.log("previousBlockHash == ", previousBlock['hash'])
+        console.log("currentBlockHash == ", currentBlock['hash']);
+       
+    }
 
-  if (!correctNonce || !correctPreviousBLockHash || !correctHash || !correctTransactions) validChain = false;
+    //  GENESIS BLOCK CHECK
+    const genesisBlock = blockchain[0];
+    // need to save the default args from above (this.createNewBlock(100, '0', '0'))
+    const correctNonce = genesisBlock["nonce"] === 100;
+    const correctPreviousBLockHash = genesisBlock["previousBlockHash"] === "0";
+    const correctHash = genesisBlock["hash"] === "0";
+    //also check that no transactions
+    const correctTransactions = genesisBlock["transactions"].length === 0;
 
-  return validChain;
+    if (!correctNonce || !correctPreviousBLockHash || !correctHash || !correctTransactions) validChain = false;
+
+    return validChain;
 }
 ///  CONSENSUS ALGORITHM -an algorithm that allows the network to agree upon what the correct data in the chain is
 //  if something bad/malicious happens on a specific transaction in a chain, you need a way to confirm the data
