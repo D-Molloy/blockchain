@@ -181,14 +181,37 @@ Blockchain.prototype.chainIsValid = function(blockchain){
 
 // search for the block with the arg blockHash and return it
 Blockchain.prototype.getBlock = function(blockHash){
+    //flag
     let correctBlock = null;
     this.chain.forEach(block => {
         if (block.hash === blockHash) correctBlock = block;
     })
 
     //   if correctBlock === null then the searched hash doesnt exist on the chain'
-    
+
     return correctBlock;
+}
+
+
+Blockchain.prototype.getTransaction = function(transactionId){
+    //flags
+    let correctTransaction = null;
+    let correctBlock = null
+    //iterate over the chain
+    this.chain.forEach(block =>{
+        //iterate over each block's trannsactions looking for the correct ID
+        block.transactions.forEach(transaction => {
+            if(transaction.transactionId === transactionId){
+                correctTransaction = transaction;
+                correctBlock = block;
+            }
+        })
+    })
+
+    return {
+        transaction : correctTransaction,
+        block: correctBlock
+    }
 }
 
 module.exports = Blockchain;
