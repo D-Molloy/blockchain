@@ -178,4 +178,17 @@ Blockchain.prototype.chainIsValid = function(blockchain){
 //  longest one has the most work in it - the whole network contributed to it
 //  Used by the bitcoin blockchain network
 
+
+// search for the block with the arg blockHash and return it
+Blockchain.prototype.getBlock = function(blockHash){
+    let correctBlock = null;
+    this.chain.forEach(block => {
+        if (block.hash === blockHash) correctBlock = block;
+    })
+
+    //   if correctBlock === null then the searched hash doesnt exist on the chain'
+    
+    return correctBlock;
+}
+
 module.exports = Blockchain;
