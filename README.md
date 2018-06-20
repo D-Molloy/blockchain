@@ -20,7 +20,7 @@ Notes:
 
 ## Connecting the network
 Make a POST request to http://localhost:3001/register-and-broadcast-node with the following data attached to the body using a tool like Postman:
-####Example:
+#### Example:
 ```
 {
 	"newNodeUrl": "http://localhost:3002"
