@@ -1,5 +1,5 @@
 # JavaScript Blockchain
-A complete blockchain prototype built in JavaScript.  The blockchain data structure is located in dev/blockchain.js and all API endpoints are in dev/networkNode.js.  Both are thoroughly commented with explanations to how everything works.
+A complete blockchain prototype built in JavaScript.  The blockchain data structure is located in dev/blockchain.js and all API endpoints are in dev/networkNode.js.  Both are thoroughly commented with explanations to how everything works. **Note the block-explorer is still in development and will be overhauled
 
 
 ## Clone the repo and start the network nodes:
