@@ -223,7 +223,7 @@ Blockchain.prototype.getAddressData = function(address) {
             if(transaction.sender === address || transaction.recipient === address){
                 //adding all sender/recipient transactions for that address to the array
                 addressTransactions.push(transaction);
-            }
+            };
         });
     });
 
@@ -232,12 +232,12 @@ Blockchain.prototype.getAddressData = function(address) {
     addressTransactions.forEach(transaction => {
         if (transaction.recipient === address) balance += transaction.amount;
         else if (transaction.sender === address) balance -= transaction.amount;
-    })
+    });
 
     return {
         addressTransactions: addressTransactions,
         addressBalance: balance
-    }
+    };
 };
 
 module.exports = Blockchain;
