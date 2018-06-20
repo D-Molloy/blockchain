@@ -4,11 +4,12 @@ const uuid = require("uuid/v1");
 
 const currentNodeUrl = process.argv[3]
 function Blockchain() {
-    //meat of the chain is stored
+    // meat of the chain is stored
     // all the block created/mined will be stored here
     this.chain = [];
+    
     //holds all new transactions created before they are put in a block or mine
-    // preople will be making a lot of transactions
+    // people will be making a lot of transactions
     //every time a newTransaction is created it will be pushed into this array
     // these transactions are set in stone until a new block is mined (created)
     //newTransactions are just pending transactions that have not been validated yet
