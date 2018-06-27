@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Block Explorer</title>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+	    crossorigin="anonymous"></script>
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
+	<!-- Custom stylesheet -->
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<div class="parallax-container">
+		<div class="parallax">
+			<img src="https://d1nz104zbf64va.cloudfront.net/dt/a/o/what-is-blockchain-the-technology-explained.jpg">
+		</div>
+	</div>
+	<div class="row">
+		<!-- TABS -->
+		<div class="col s12">
+			<ul class="tabs">
+				<li class="tab">
+					<a class="active" href="#home">Home</a>
+				</li>
+				<li class="tab">
+					<a href="#connect">Connect</a>
+				</li>
+				<li class="tab">
+					<a href="#transact">Transact</a>
+				</li>
+				<li class="tab">
+					<a href="#mine">Mine</a>
+				</li>
+				<li class="tab">
+					<a href="#view" id="view_tab">View</a>
+				</li>
+				<li class="tab">
+					<a href="#search">Search</a>
+				</li>
+			</ul>
+		</div>
+		<!-- TAB CONTENTS -->
+		<div id="home" class="col s12">
+			<h1>WELCOME!</h1>
+			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
+				man braid pabst leggings. Crucifix VHS pop-up twee, kogi synth vexillologist salvia schlitz cred pork belly pour-over.
+				Quinoa tofu organic fashion axe. Kale chips yr wayfarers brunch street art sustainable, aesthetic beard unicorn succulents
+				kitsch messenger bag. Fanny pack selfies fixie brooklyn microdosing cronut YOLO, biodiesel occupy dreamcatcher. Vape
+				gastropub meditation fixie tousled. Waistcoat ramps tumblr, austin chartreuse schlitz pour-over. Man braid hexagon taiyaki,
+				taxidermy humblebrag roof party poutine edison bulb fashion axe lo-fi sustainable blog wolf succulents celiac. Helvetica
+				everyday carry adaptogen waistcoat pickled green juice authentic yuccie. Mustache blog polaroid pug meditation asymmetrical
+				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
+				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
+		</div>
+		<div id="connect" class="col s12">
+			<h1>Connect Nodes to the Blockchain Network</h1>
+			<div class="row">
+				<form class="col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<input placeholder="e.g. http://localhost:3002" id="add_node" type="text" class="validate">
+							<label for="add_node">Network Node You Want To Add:</label>
+						</div>
+						<a class="waves-effect waves-light btn" id="submit_node">Add Node</a>
+					</div>
+				</form>
+			</div>
+			<div id="connect_message">
+
+			</div>
+		</div>
+		<div id="transact" class="col s12">
+			<h1>Create a Transaction</h1>
+			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
+				man braid pabst leggings. Crucifix VHS pop-up twee, kogi synth vexillologist salvia schlitz cred pork belly pour-over.
+				Quinoa tofu organic fashion axe. Kale chips yr wayfarers brunch street art sustainable, aesthetic beard unicorn succulents
+				kitsch messenger bag. Fanny pack selfies fixie brooklyn microdosing cronut YOLO, biodiesel occupy dreamcatcher. Vape
+				gastropub meditation fixie tousled. Waistcoat ramps tumblr, austin chartreuse schlitz pour-over. Man braid hexagon taiyaki,
+				taxidermy humblebrag roof party poutine edison bulb fashion axe lo-fi sustainable blog wolf succulents celiac. Helvetica
+				everyday carry adaptogen waistcoat pickled green juice authentic yuccie. Mustache blog polaroid pug meditation asymmetrical
+				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
+				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
+		</div>
+		<div id="mine" class="col s12">
+			<h1>Mine a new Block</h1>
+			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
+				man braid pabst leggings. Crucifix VHS pop-up twee, kogi synth vexillologist salvia schlitz cred pork belly pour-over.
+				Quinoa tofu organic fashion axe. Kale chips yr wayfarers brunch street art sustainable, aesthetic beard unicorn succulents
+				kitsch messenger bag. Fanny pack selfies fixie brooklyn microdosing cronut YOLO, biodiesel occupy dreamcatcher. Vape
+				gastropub meditation fixie tousled. Waistcoat ramps tumblr, austin chartreuse schlitz pour-over. Man braid hexagon taiyaki,
+				taxidermy humblebrag roof party poutine edison bulb fashion axe lo-fi sustainable blog wolf succulents celiac. Helvetica
+				everyday carry adaptogen waistcoat pickled green juice authentic yuccie. Mustache blog polaroid pug meditation asymmetrical
+				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
+				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
+		</div>
+		<div id="view" class="col s12">
+			<h1>View the Entire Blockchain</h1>
+			<div id="view_tab_contents">
+				
+			</div>
+		</div>
+		<div id="search" class="col s12">
+			<h1>Search for a specific hash, block, or transaction</h1>
+			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
+				man braid pabst leggings. Crucifix VHS pop-up twee, kogi synth vexillologist salvia schlitz cred pork belly pour-over.
+				Quinoa tofu organic fashion axe. Kale chips yr wayfarers brunch street art sustainable, aesthetic beard unicorn succulents
+				kitsch messenger bag. Fanny pack selfies fixie brooklyn microdosing cronut YOLO, biodiesel occupy dreamcatcher. Vape
+				gastropub meditation fixie tousled. Waistcoat ramps tumblr, austin chartreuse schlitz pour-over. Man braid hexagon taiyaki,
+				taxidermy humblebrag roof party poutine edison bulb fashion axe lo-fi sustainable blog wolf succulents celiac. Helvetica
+				everyday carry adaptogen waistcoat pickled green juice authentic yuccie. Mustache blog polaroid pug meditation asymmetrical
+				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
+				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
+		</div>
+	</div>
+
+	<script src="script.js"></script>
+</body>
+
+</html>

@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 
+app.use(express.static(__dirname + '/block-explorer'))
 ///        BLOCK DATA ROUTES
 
 //fetch entire block chain
@@ -60,7 +61,8 @@ app.post("/transaction/broadcast", function(req, res){
     Promise.all(requestPromises)
     .then(data =>{
         res.json({ note: "Transaction created and broadcast successfully."})
-    });
+    })
+    
 });
 
 
