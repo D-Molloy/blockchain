@@ -22,7 +22,7 @@
 			<img src="https://d1nz104zbf64va.cloudfront.net/dt/a/o/what-is-blockchain-the-technology-explained.jpg">
 		</div>
 	</div>
-	<div class="row">
+	<div class="row container">
 		<!-- TABS -->
 		<div class="col s12">
 			<ul class="tabs">
@@ -30,23 +30,23 @@
 					<a class="active" href="#home">Home</a>
 				</li>
 				<li class="tab col s2">
-					<a href="#connect">Connect</a>
+					<a href="#connect">1 - Connect</a>
 				</li>
 				<li class="tab col s2">
-					<a href="#transact">Transact</a>
+					<a href="#transact">2 - Transact</a>
 				</li>
 				<li class="tab col s2">
-					<a href="#mine">Mine</a>
+					<a href="#mine">3 - Mine</a>
 				</li>
 				<li class="tab col s2">
-					<a href="#view" id="view_tab">View</a>
+					<a href="#view" id="view_tab">4 - View</a>
 				</li>
 				<li class="tab col s2">
 					<a href="#search">Search</a>
 				</li>
 			</ul>
 		</div>
-		<!-- TAB CONTENTS -->
+		<!-- WELCOME -->
 		<div id="home" class="col s12">
 			<h1>WELCOME!</h1>
 			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
@@ -59,6 +59,8 @@
 				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
 				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
 		</div>
+
+		<!-- CONNECT -->
 		<div id="connect" class="col s12">
 			<h1>Connect Nodes to the Blockchain Network</h1>
 			<div class="row">
@@ -72,10 +74,10 @@
 					</div>
 				</form>
 			</div>
-			<div id="connect_message">
-
-			</div>
+			<div id="connect_message"></div>
 		</div>
+
+		<!-- TRANSACT -->
 		<div id="transact" class="col s12">
 			<h1>Create a Transaction</h1>
 			<div class="row">
@@ -97,21 +99,14 @@
 					</div>
 				</form>
 			</div>
-			<div id="transaction_message">
-
-			</div>
+			<div id="transaction_message"></div>
 		</div>
+
+		<!-- MINE -->
 		<div id="mine" class="col s12">
 			<h1>Mine a new Block</h1>
-			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
-				man braid pabst leggings. Crucifix VHS pop-up twee, kogi synth vexillologist salvia schlitz cred pork belly pour-over.
-				Quinoa tofu organic fashion axe. Kale chips yr wayfarers brunch street art sustainable, aesthetic beard unicorn succulents
-				kitsch messenger bag. Fanny pack selfies fixie brooklyn microdosing cronut YOLO, biodiesel occupy dreamcatcher. Vape
-				gastropub meditation fixie tousled. Waistcoat ramps tumblr, austin chartreuse schlitz pour-over. Man braid hexagon taiyaki,
-				taxidermy humblebrag roof party poutine edison bulb fashion axe lo-fi sustainable blog wolf succulents celiac. Helvetica
-				everyday carry adaptogen waistcoat pickled green juice authentic yuccie. Mustache blog polaroid pug meditation asymmetrical
-				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
-				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
+			<a class="waves-effect waves-light btn" id="mine_block">Mine a new block</a>
+			<div id="mine_message"></div>
 		</div>
 
 		<!-- VIEW -->
@@ -134,7 +129,11 @@
 				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
 		</div>
 	</div>
-
+	<div class="parallax-container" id="parallax_image">
+		<div class="parallax">
+			<img src="https://d1nz104zbf64va.cloudfront.net/dt/a/o/what-is-blockchain-the-technology-explained.jpg">
+		</div>
+	</div>
 	<script src="script.js"></script>
 </body>
 

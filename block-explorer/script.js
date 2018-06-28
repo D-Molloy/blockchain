@@ -43,6 +43,17 @@ $(document).ready(function(){
         $("#create_recip").val("");
     })
 
+
+    // Mine Tab
+    $("#mine_block").click(() =>{
+        $.get("/mine", data => {
+            console.log(data)
+            $("#mine_message").text(data.note).fadeOut(4000)
+        })
+          
+    })
+
+
     // View Tab
     $("#view_tab").click(function(){
         $("#view_content").empty()
