@@ -1,3 +1,11 @@
-ul li {
+/* ul li {
     width: calc(98.6% / 6)
+} */
+
+#parallax_image {
+    height: 300px;
+}
+
+.pend_trans_div{
+    border: 1px solid blue;
 }

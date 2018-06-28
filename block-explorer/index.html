@@ -17,7 +17,7 @@
 </head>
 
 <body>
-	<div class="parallax-container">
+	<div class="parallax-container" id="parallax_image">
 		<div class="parallax">
 			<img src="https://d1nz104zbf64va.cloudfront.net/dt/a/o/what-is-blockchain-the-technology-explained.jpg">
 		</div>
@@ -26,22 +26,22 @@
 		<!-- TABS -->
 		<div class="col s12">
 			<ul class="tabs">
-				<li class="tab">
+				<li class="tab col s2">
 					<a class="active" href="#home">Home</a>
 				</li>
-				<li class="tab">
+				<li class="tab col s2">
 					<a href="#connect">Connect</a>
 				</li>
-				<li class="tab">
+				<li class="tab col s2">
 					<a href="#transact">Transact</a>
 				</li>
-				<li class="tab">
+				<li class="tab col s2">
 					<a href="#mine">Mine</a>
 				</li>
-				<li class="tab">
+				<li class="tab col s2">
 					<a href="#view" id="view_tab">View</a>
 				</li>
-				<li class="tab">
+				<li class="tab col s2">
 					<a href="#search">Search</a>
 				</li>
 			</ul>
@@ -78,15 +78,28 @@
 		</div>
 		<div id="transact" class="col s12">
 			<h1>Create a Transaction</h1>
-			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
-				man braid pabst leggings. Crucifix VHS pop-up twee, kogi synth vexillologist salvia schlitz cred pork belly pour-over.
-				Quinoa tofu organic fashion axe. Kale chips yr wayfarers brunch street art sustainable, aesthetic beard unicorn succulents
-				kitsch messenger bag. Fanny pack selfies fixie brooklyn microdosing cronut YOLO, biodiesel occupy dreamcatcher. Vape
-				gastropub meditation fixie tousled. Waistcoat ramps tumblr, austin chartreuse schlitz pour-over. Man braid hexagon taiyaki,
-				taxidermy humblebrag roof party poutine edison bulb fashion axe lo-fi sustainable blog wolf succulents celiac. Helvetica
-				everyday carry adaptogen waistcoat pickled green juice authentic yuccie. Mustache blog polaroid pug meditation asymmetrical
-				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
-				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
+			<div class="row">
+				<form class="col s12">
+					<div class="row">
+						<div class="input-field col s6">
+							<input placeholder="e.g. 100" id="create_amount" type="text" class="validate">
+							<label for="create_amount">Amount you would like to send:</label>
+						</div>
+						<div class="input-field col s6">
+							<input placeholder="Enter a unique identifier for your address" id="create_sender" type="text" class="validate">
+							<label for="create_sender">Sender:</label>
+						</div>
+						<div class="input-field col s6">
+							<input placeholder="Enter a unique for your recipient's address" id="create_recip" type="text" class="validate">
+							<label for="create_recip">Recipient:</label>
+						</div>
+						<a class="waves-effect waves-light btn" id="submit_trans">Make Transaction</a>
+					</div>
+				</form>
+			</div>
+			<div id="transaction_message">
+
+			</div>
 		</div>
 		<div id="mine" class="col s12">
 			<h1>Mine a new Block</h1>
@@ -100,12 +113,14 @@
 				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
 				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
 		</div>
+
+		<!-- VIEW -->
 		<div id="view" class="col s12">
 			<h1>View the Entire Blockchain</h1>
-			<div id="view_tab_contents">
-				
-			</div>
+			<div id="view_content"></div>
 		</div>
+
+		<!-- SEARCH -->
 		<div id="search" class="col s12">
 			<h1>Search for a specific hash, block, or transaction</h1>
 			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
