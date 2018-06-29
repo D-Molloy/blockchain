@@ -1,5 +1,5 @@
 # JavaScript Blockchain
-A complete blockchain prototype built in JavaScript.  The blockchain data structure is located in dev/blockchain.js and all API endpoints are in dev/networkNode.js.  Both are thoroughly commented with explanations to how everything works.
+A complete blockchain prototype built in JavaScript.  The blockchain data structure is located in dev/blockchain.js and all API endpoints are in dev/networkNode.js.  Both are thoroughly commented with explanations to how everything works. **Note the block-explorer is still in development and will be overhauled
 
 
 ## Clone the repo and start the network nodes:
@@ -19,8 +19,8 @@ Notes:
 
 
 ## Connecting the network
-Make a POST request to http://localhost:3001/register-and-broadcast-node with the following data attached to the body using a tool like Postman:
-####Example:
+Make a POST request to `http://localhost:3001/register-and-broadcast-node` with the following data attached to the body using a tool like Postman:
+#### Example:
 ```
 {
 	"newNodeUrl": "http://localhost:3002"
@@ -29,7 +29,11 @@ Make a POST request to http://localhost:3001/register-and-broadcast-node with th
 * make additional requests with an updated "newNodeUrl" for each node you want to connect to network
 
 ## Creating Transactions
+<<<<<<< HEAD
 Make a POST request to the /register-and-broadcast-node endpoint (e.g. http://localhost:3001/transaction/broadcast) on any node on the network with the following raw JSON data in the body (be sure you're sending an object with the properties "amount"/number, "sender"/any string of characters, "recipient"/any string of characters)
+=======
+Make a POST request to the /register-and-broadcast-node endpoint (e.g. `http://localhost:3001/register-and-broadcast-node`) on any node on the network with the following raw JSON data in the body (be sure you're sending an object with the properties "amount"/number, "sender"/any string of characters, "recipient"/any string of characters)
+>>>>>>> 2e62e5f00f0c076c09b7b97631567d4b98aa5d80
 #### Example:
 ```
 {
