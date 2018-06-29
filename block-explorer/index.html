@@ -71,7 +71,7 @@
 							<input placeholder="e.g. http://localhost:3002" id="add_node" type="text" class="validate">
 							<label for="add_node">Network Node You Want To Add:</label>
 						</div>
-						<a class="waves-effect waves-light btn" id="submit_node">Add Node</a>
+						<a class="waves-effect waves-light btn block_button" id="submit_node">Add Node</a>
 					</div>
 				</form>
 			</div>
@@ -96,7 +96,7 @@
 							<input placeholder="Enter a unique for your recipient's address" id="create_recip" type="text" class="validate">
 							<label for="create_recip">Recipient:</label>
 						</div>
-						<a class="waves-effect waves-light btn" id="submit_trans">Make Transaction</a>
+						<a class="waves-effect waves-light btn block_button" id="submit_trans">Make Transaction</a>
 					</div>
 				</form>
 			</div>
@@ -112,7 +112,7 @@
 				<ul class="collapsible popout animated" id="block_display">
 				</ul>
 			</div>
-			<a class="waves-effect waves-light btn" id="mine_block">Mine a new block</a>
+			<a class="waves-effect waves-light btn block_button" id="mine_block">Mine a new block</a>
 			<div id="mine_message"></div>
 		</div>
 
@@ -125,15 +125,42 @@
 		<!-- SEARCH -->
 		<div id="search" class="col s12">
 			<h1>Search for a specific hash, block, or transaction</h1>
-			<p>Lorem ipsum dolor amet sriracha seitan irony, heirloom church-key coloring book tofu pickled godard single-origin coffee
-				man braid pabst leggings. Crucifix VHS pop-up twee, kogi synth vexillologist salvia schlitz cred pork belly pour-over.
-				Quinoa tofu organic fashion axe. Kale chips yr wayfarers brunch street art sustainable, aesthetic beard unicorn succulents
-				kitsch messenger bag. Fanny pack selfies fixie brooklyn microdosing cronut YOLO, biodiesel occupy dreamcatcher. Vape
-				gastropub meditation fixie tousled. Waistcoat ramps tumblr, austin chartreuse schlitz pour-over. Man braid hexagon taiyaki,
-				taxidermy humblebrag roof party poutine edison bulb fashion axe lo-fi sustainable blog wolf succulents celiac. Helvetica
-				everyday carry adaptogen waistcoat pickled green juice authentic yuccie. Mustache blog polaroid pug meditation asymmetrical
-				gastropub messenger bag cold-pressed DIY authentic vice. Venmo microdosing fixie celiac meh shoreditch, selfies bitters
-				messenger bag dreamcatcher waistcoat fashion axe affogato migas.</p>
+
+			<div class="row">
+				<form class="col s12">
+
+					<div class="input-field">
+						<div class="row search_div">
+							<div class="col s6">
+								<label for="search_node">Search for details on a specific network node:</label>
+								<input placeholder="Enter the name of a sender or recipient" id="search_node" type="text" class="validate">
+							</div>
+							<div class="col s4 search_button">
+								<a class="waves-effect waves-light btn block_button" id="submit_trans">Search Node</a>
+							</div>
+						</div>
+						<div class="row search_div">
+							<div class="col s6">
+								<label for="search_trans">Search for a specific transaction:</label>
+								<input placeholder="Transaction ID e.g. e59541707b5911e8901641ff474e52e2" id="search_trans" type="text" class="validate">
+							</div>
+							<div class="col s4 search_button">
+								<a class="waves-effect waves-light btn block_button" id="search_trans_btn">Search Transaction</a>
+							</div>
+						</div>
+						<div class="row search_div">
+							<div class="col s6">
+								<label for="search_hash">Search for a particular block:</label>
+								<input placeholder="e.g. 0000de264017ab0b8fa3e0badb6c450801856df28a0c2a1a83f9b42aa06bf63a" id="search_hash" type="text" class="validate">
+							</div>
+							<div class="col s4 search_button">
+								<a class="waves-effect waves-light btn block_button" id="submit_trans">Search Block</a>
+							</div>
+						</div>
+
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 	<div class="parallax-container" id="parallax_image">

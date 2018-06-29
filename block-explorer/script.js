@@ -1,25 +1,25 @@
 const makeCollapsible = () => {
-    setTimeout(()=>{
+    setTimeout(() => {
         $('.collapsible').collapsible();
     }, 200)
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     $('.tabs').tabs();
     $('.parallax').parallax();
- 
+
     $(".tabs>li>a").css("color", '#FFF');
     $(".tabs>.indicator").css("background-color", '#FFF');
-    $(".tabs" ).css("background-color",  "#005A96" );
+    $(".tabs").css("background-color", "#005A96");
 
     // Connect Tab
-    $("#submit_node").click(function(){
+    $("#submit_node").click(function () {
 
         const newNodeData = {
             "newNodeUrl": $("#add_node").val().trim()
         };
-        
-        $.post("/register-and-broadcast-node", newNodeData, (data)=> {
+
+        $.post("/register-and-broadcast-node", newNodeData, (data) => {
             $("#connect_message").text(data.note).fadeOut(4000)
         });
 
@@ -27,17 +27,17 @@ $(document).ready(function(){
     });
 
     //  Transaction Tab
-    $("#submit_trans").click(()=>{
+    $("#submit_trans").click(() => {
         const transData = {
             amount: parseInt($("#create_amount").val().trim()),
             sender: $("#create_sender").val().trim(),
             recipient: $("#create_recip").val().trim()
         };
 
-        $.post("/transaction/broadcast", transData, (data)=> {
+        $.post("/transaction/broadcast", transData, (data) => {
             $("#transaction_message").text(data.note).fadeOut(4000);
         });
-        
+
         $("#create_amount").val("");
         $("#create_sender").val("");
         $("#create_recip").val("");
@@ -45,57 +45,60 @@ $(document).ready(function(){
 
     // Mine Tab
 
-    $("#mine_block").click(() =>{
+    $("#mine_block").click(() => {
         $.get("/mine", data => {
             $("#block_display").empty();
             console.log(data)
             $("#mine_message").text(data.note).fadeOut(4000)
             const block = data.block;
             $("#block_display").append(`<li id="block-${block.index}">
-            <div class="collapsible-header">
-                <p>Block: ${block.index}</p>
-            </div>
-            <div class="collapsible-body">
-           
-                <div class="block_body">
-                    <p>Block Hash: ${block.hash}</p>
-                    <p>Previous Block Hash: ${block.previousBlockHash}</p>
-                    <p>Nonce: ${block.nonce}</p>
-                    <p>Timestamp: ${block.timestamp}</p>
-                    <p>Transactions in this block:</p>
-                    <div class="transaction_div" id="transactions"></div>
-                </div>
-            
-            </div>
-          </li>`);
+                                        <div class="collapsible-header">
+                                            <div class="block_title_div">
+                                            <p class="block_title">Block: ${block.index}</p>
+                                            </div>
+                                        </div>
+                                        <div class="collapsible-body">
+                                            <div class="block_body">
+                                                <p>Block Hash: ${block.hash}</p>
+                                                <p>Previous Block Hash: ${block.previousBlockHash}</p>
+                                                <p>Nonce: ${block.nonce}</p>
+                                                <p>Timestamp: ${block.timestamp}</p>
+                                                <p>Transactions in this block:</p>
+                                                <div class="transaction_div" id="transactions"></div>
+                                            </div>
+                                        
+                                        </div>
+                                    </li>`);
 
-          for (let transaction of block.transactions)
-            $(`#transactions`).append(`<div class="trans_block">
+            for (let transaction of block.transactions)
+                $(`#transactions`).append(`<div class="trans_block">
                                 <p>Amount: <span>${transaction.amount}</span></p>
                                 <p>Recipient: <span>${transaction.recipient}</span></p>
                                 <p>Sender: <span>${transaction.sender}</span></p>
                                 <p>Transaction ID: <span>${transaction.transactionId}</span></p>
                                 </div>`)
-    
+
         })
         makeCollapsible();
-        setTimeout(()=>{
+        setTimeout(() => {
             $('#block_display').addClass('animated shake');
-        }, 3000);  
+        }, 3000);
     })
 
 
     // View Tab
-    $("#view_tab").click(()=>{
+    $("#view_tab").click(() => {
         $("#view_content").empty()
 
-        $.get("/blockchain", (data)=>{
+        $.get("/blockchain", (data) => {
             console.log(data);
             const blockData = data.chain.map(block => {
                 return (
-                `<li id="block-${block.index}">
-                    <div class="collapsible-header">
-                        <p>Block: ${block.index}</p>
+                    `<li id="block-${block.index}">
+                    <div class="collapsible-header" >
+                        <div class="block_title_div">
+                        <p class="block_title">Block: ${block.index}</p>
+                        </div>
                     </div>
                     <div class="collapsible-body">
                    
@@ -140,10 +143,10 @@ $(document).ready(function(){
 
 
             //  Add collapsible block elements 
-            for (let block of blockData){
+            for (let block of blockData) {
                 $("#block_table").append(block);
             }
-            
+
 
             //add pending transaction data
             data.pendingTransactions.forEach(trans => {
@@ -154,22 +157,22 @@ $(document).ready(function(){
                 <p>Transaction ID: <span>${trans.transactionId}</span></p>
                 </div>`);
             });
-            
+
             // adding transaction data to each block
             const transArray = [];
-            for (let i=0; i < data.chain.length; i++){
+            for (let i = 0; i < data.chain.length; i++) {
                 transArray.push(data.chain[i].transactions)
             }
 
             console.log(transArray)
 
-            let transData =[]
-            for(let [i, block] of transArray.entries()){
-                if (block.length !== 0){
+            let transData = []
+            for (let [i, block] of transArray.entries()) {
+                if (block.length !== 0) {
                     // for(let j=0; j< block.length; j++){
                     //     $(`#transactions-${i+1}`).append(block[j].amount)
                     // }
-                    for (let transaction of block){
+                    for (let transaction of block) {
                         $(`#transactions-${i+1}`).append(`<div class="trans_block">
                                             <p>Amount: <span>${transaction.amount}</span></p>
                                             <p>Recipient: <span>${transaction.recipient}</span></p>
@@ -190,5 +193,5 @@ $(document).ready(function(){
 
     // SEARCH TAB
     // app.get("/block/:blockHash",
-    
-  });
+
+});

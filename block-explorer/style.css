@@ -1,17 +1,46 @@
 /* dark blue 005C91 */
-/* light blue */
+/* light blue 006496*/
+:root{
+    --darkBlue: #005C91;
+    --blue: #367a9c;
+    --lightBlue: #33B5E0;
+}
 #parallax_image {
     height: 300px;
 }
 
+.block_button{
+    background-color: var(--lightBlue)
+}
+
+.block_button:hover{
+    background-color: var(--darkBlue)
+}
+
+
 .pend_trans_div{
-    border: 1px solid blue;
+    border: 1px solid var(--darkBlue);
+}
+
+.block_title_div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-size: 25px;
+    color:white;
+}
+.block_title {
+    margin: 0;
 }
 
 .trans_block {
-    border: 1px solid #a0a0a0;
+    color: white;
+    padding-left: 20px;
+    border: 1px solid var(--darkBlue);
+    background-color: var(--blue);
 }
 
 div.collapsible-header {
-    background-color: #006496;
+    background-color: var(--darkBlue);
 }
+
