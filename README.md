@@ -29,11 +29,7 @@ Make a POST request to `http://localhost:3001/register-and-broadcast-node` with 
 * make additional requests with an updated "newNodeUrl" for each node you want to connect to network
 
 ## Creating Transactions
-<<<<<<< HEAD
 Make a POST request to the /register-and-broadcast-node endpoint (e.g. http://localhost:3001/transaction/broadcast) on any node on the network with the following raw JSON data in the body (be sure you're sending an object with the properties "amount"/number, "sender"/any string of characters, "recipient"/any string of characters)
-=======
-Make a POST request to the /register-and-broadcast-node endpoint (e.g. `http://localhost:3001/register-and-broadcast-node`) on any node on the network with the following raw JSON data in the body (be sure you're sending an object with the properties "amount"/number, "sender"/any string of characters, "recipient"/any string of characters)
->>>>>>> 2e62e5f00f0c076c09b7b97631567d4b98aa5d80
 #### Example:
 ```
 {
