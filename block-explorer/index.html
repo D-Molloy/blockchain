@@ -12,6 +12,7 @@
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 	<!-- Custom stylesheet -->
 	<link rel="stylesheet" href="style.css">
 </head>
@@ -105,6 +106,12 @@
 		<!-- MINE -->
 		<div id="mine" class="col s12">
 			<h1>Mine a new Block</h1>
+			<div id="mine_message">
+			</div>
+			<div id="block_div">
+				<ul class="collapsible popout animated" id="block_display">
+				</ul>
+			</div>
 			<a class="waves-effect waves-light btn" id="mine_block">Mine a new block</a>
 			<div id="mine_message"></div>
 		</div>

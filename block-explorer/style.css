@@ -1,11 +1,17 @@
-/* ul li {
-    width: calc(98.6% / 6)
-} */
-
+/* dark blue 005C91 */
+/* light blue */
 #parallax_image {
     height: 300px;
 }
 
 .pend_trans_div{
     border: 1px solid blue;
+}
+
+.trans_block {
+    border: 1px solid #a0a0a0;
+}
+
+div.collapsible-header {
+    background-color: #006496;
 }
