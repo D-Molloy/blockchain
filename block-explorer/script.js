@@ -7,7 +7,7 @@ const makeCollapsible = () => {
 $(document).ready(function () {
     $('.tabs').tabs();
     $('.parallax').parallax();
-
+    $('select').formSelect();
     $(".tabs>li>a").css("color", '#FFF');
     $(".tabs>.indicator").css("background-color", '#FFF');
     $(".tabs").css("background-color", "#005A96");
@@ -25,6 +25,13 @@ $(document).ready(function () {
 
         $("#add_node").val("");
     });
+
+////////////////////////////
+//////
+//////          SHOW COMPLETE TRANSACTION
+///  Make sure transaction complete message is showing
+
+
 
     //  Transaction Tab
     $("#submit_trans").click(() => {
@@ -190,8 +197,24 @@ $(document).ready(function () {
     })
     // END View Tab
 
+    // /address/:address
+    // /transaction/:transactionId
+    // /block/:blockHash
 
     // SEARCH TAB
     // app.get("/block/:blockHash",
 
+    $(".search_buttons").click(function(event) {
+        const type = $(this).data("value");
+        const parameter = $(`#${type}`).val()
+        console.log(`/${type}/${parameter}`);
+
+        $.get(`/${type}/${parameter}`)
+        .then((data)=> type === "address" ? console.log("address") : type === "transaction" ? console.log("transaction") : console.log("block"))
+        .catch(data=> {
+//////////////
+///     Add message to DOM 
+            console.log("NOT FOUND!")
+        })
+    })
 });

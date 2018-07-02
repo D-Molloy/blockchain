@@ -128,33 +128,37 @@
 
 			<div class="row">
 				<form class="col s12">
-
 					<div class="input-field">
 						<div class="row search_div">
 							<div class="col s6">
 								<label for="search_node">Search for details on a specific network node:</label>
-								<input placeholder="Enter the name of a sender or recipient" id="search_node" type="text" class="validate">
+								<input placeholder="Enter the name of a sender or recipient" id="address" type="text" class="validate">
 							</div>
 							<div class="col s4 search_button">
-								<a class="waves-effect waves-light btn block_button" id="submit_trans">Search Node</a>
+								<a class="waves-effect waves-light btn block_button search_buttons" data-value="address" id="submit_trans">Search Node</a>
 							</div>
 						</div>
 						<div class="row search_div">
 							<div class="col s6">
 								<label for="search_trans">Search for a specific transaction:</label>
-								<input placeholder="Transaction ID e.g. e59541707b5911e8901641ff474e52e2" id="search_trans" type="text" class="validate">
+								<input placeholder="Transaction ID e.g. e59541707b5911e8901641ff474e52e2"  id="transaction" type="text" 
+								
+								814ff1607db611e8b9a27375d3dcb816
+								
+								0000e52cff08a52fd6911c595a490a05a4a7ff193affb38e6b608ed485c530e4
+								class="validate">
 							</div>
 							<div class="col s4 search_button">
-								<a class="waves-effect waves-light btn block_button" id="search_trans_btn">Search Transaction</a>
+								<a class="waves-effect waves-light btn block_button search_buttons" data-value="transaction" id="search_trans_btn">Search Transaction</a>
 							</div>
 						</div>
 						<div class="row search_div">
 							<div class="col s6">
 								<label for="search_hash">Search for a particular block:</label>
-								<input placeholder="e.g. 0000de264017ab0b8fa3e0badb6c450801856df28a0c2a1a83f9b42aa06bf63a" id="search_hash" type="text" class="validate">
+								<input placeholder="e.g. 0000de264017ab0b8fa3e0badb6c450801856df28a0c2a1a83f9b42aa06bf63a" id="block" type="text" class="validate">
 							</div>
 							<div class="col s4 search_button">
-								<a class="waves-effect waves-light btn block_button" id="submit_trans">Search Block</a>
+								<a class="waves-effect waves-light btn block_button search_buttons" data-value="block" id="submit_trans">Search Block</a>
 							</div>
 						</div>
 
