@@ -210,7 +210,7 @@ $(document).ready(function () {
         console.log(`/${type}/${parameter}`);
 
         $.get(`/${type}/${parameter}`)
-        .then((data)=> type === "address" ? console.log("address") : type === "transaction" ? console.log("transaction") : console.log("block"))
+        .then((data)=> type === "address" ? console.log("address" , data) : type === "transaction" ? console.log("transaction", data) : console.log("block", data))
         .catch(data=> {
 //////////////
 ///     Add message to DOM 

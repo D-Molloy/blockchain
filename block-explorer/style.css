@@ -44,3 +44,15 @@ div.collapsible-header {
     background-color: var(--darkBlue);
 }
 
+.search_div{
+    display: flex;
+    justify-content: space-around;
+    border: 1px solid var(--blue);
+}
+#search_button_div {
+    height: 115px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
