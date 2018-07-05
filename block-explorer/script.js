@@ -171,8 +171,6 @@ $(document).ready(function () {
                 transArray.push(data.chain[i].transactions)
             }
 
-            console.log(transArray)
-
             let transData = []
             for (let [i, block] of transArray.entries()) {
                 if (block.length !== 0) {
@@ -198,12 +196,40 @@ $(document).ready(function () {
     // END View Tab
 
     // /address/:address
+        // returns
+        // data: {
+        //     addressBalance: (int)
+        //     addressTransactions: [{amount: (string), sender, recipient, transactionId }]
+        // }
     // /transaction/:transactionId
+        // data {
+        //     block {
+        //         hash
+        //         indexnonce
+        //         previousBlockHash
+        //         timestamp
+        //         transactions: [ {amount, sender, recipient, transId}]
+        //     }
+        //     transaction {
+        //         amount
+        //         recipient
+        //         sender
+        //         transactionId
+        //     }
+        // }
     // /block/:blockHash
+        //data {
+        //     block {
+        //         hash
+        //         index
+        //         nonce
+        //         previousBlockHash
+        //         timestamp
+        //         transactions: [ {amount, sender, recipient, transId}]
+        //}
 
+        
     // SEARCH TAB
-    // app.get("/block/:blockHash",
-
     $(".search_buttons").click(function(event) {
         const type = $(this).data("value");
         const parameter = $(`#${type}`).val()
@@ -212,9 +238,8 @@ $(document).ready(function () {
         $.get(`/${type}/${parameter}`)
         .then((data)=> type === "address" ? console.log("address" , data) : type === "transaction" ? console.log("transaction", data) : console.log("block", data))
         .catch(data=> {
-//////////////
-///     Add message to DOM 
-            console.log("NOT FOUND!")
+            $("#search_results").append(`<h4>Results:</h4>`)
+            $("#search_results").append("<p>No information found.  Please check your search parameters.</p>")
         })
     })
 });

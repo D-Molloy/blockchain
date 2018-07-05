@@ -131,9 +131,9 @@
 					<div class="input-field">
 						<div class="row search_div">
 							<div class="col s6">
-								<p class="search_type_title">Search for details on a specific network node:</p>
-								<label for="search_node">Search for details on a specific network node:</label>
-								<input placeholder="Enter the name of a sender or recipient" id="address" type="text" class="validate">
+								<p class="search_type_title">Search for details on a specific network node</p>
+								<label for="search_node">Enter the Sender or Recipient name below:</label>
+								<input placeholder="" id="address" type="text" class="validate">
 							</div>
 							<div class="col s4" id="search_button_div">
 								<a class="waves-effect waves-light btn block_button search_buttons" data-value="address" id="submit_trans">Search Node</a>
@@ -141,9 +141,9 @@
 						</div>
 						<div class="row search_div">
 							<div class="col s6">
-								<p class="search_type_title">Search for details on a specific network node:</p>
-								<label for="search_trans">Search for a specific transaction:</label>
-								<input placeholder="Transaction ID e.g. e59541707b5911e8901641ff474e52e2" id="transaction" type="text" class="validate">
+								<p class="search_type_title">Search a specific transaction</p>
+								<label for="search_trans">Enter the Transaction ID you would like to search for:</label>
+								<input placeholder="e.g. fdc870d0807911e8a52b0f5ffc226aa6" id="transaction" type="text" class="validate">
 							</div>
 							<div class="col s4" id="search_button_div">
 								<a class="waves-effect waves-light btn block_button search_buttons" data-value="transaction" id="search_trans_btn">Search Transaction</a>
@@ -151,13 +151,16 @@
 						</div>
 						<div class="row search_div">
 							<div class="col s6">
-								<p class="search_type_title">Search for details on a specific network node:</p>
-								<label for="search_hash">Search for a particular block:</label>
+								<p class="search_type_title">View a specific block</p>
+								<label for="search_hash">Enter the hash of the block you want to view:</label>
 								<input placeholder="e.g. 0000de264017ab0b8fa3e0badb6c450801856df28a0c2a1a83f9b42aa06bf63a" id="block" type="text" class="validate">
 							</div>
 							<div class="col s4" id="search_button_div">
 								<a class="waves-effect waves-light btn block_button search_buttons" data-value="block" id="submit_trans">Search Block</a>
 							</div>
+						</div>
+						<div id="search_results">
+
 						</div>
 
 					</div>
