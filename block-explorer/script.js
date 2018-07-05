@@ -228,15 +228,24 @@ $(document).ready(function () {
         //         transactions: [ {amount, sender, recipient, transId}]
         //}
 
-        
+    const displayAddress = (data, node)=> {
+        $("#search_results").empty();
+        console.log("inside displayAddress", data)
+        $("#search_results").append(`<h4>Results:</h4>`)
+        $("#search_results").append(`<div class="node_data"><p>Displaying data for node: ${node}</p></div>`)
+///////////////
+///   FINISH ADDING data 
+    }
+
+
     // SEARCH TAB
     $(".search_buttons").click(function(event) {
         const type = $(this).data("value");
         const parameter = $(`#${type}`).val()
-        console.log(`/${type}/${parameter}`);
+        // console.log(`/${type}/${parameter}`);
 
         $.get(`/${type}/${parameter}`)
-        .then((data)=> type === "address" ? console.log("address" , data) : type === "transaction" ? console.log("transaction", data) : console.log("block", data))
+        .then((data)=> type === "address" ? displayAddress(data, parameter) : type === "transaction" ? console.log("transaction", data) : console.log("block", data))
         .catch(data=> {
             $("#search_results").append(`<h4>Results:</h4>`)
             $("#search_results").append("<p>No information found.  Please check your search parameters.</p>")
