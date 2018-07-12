@@ -20,7 +20,12 @@ $(document).ready(function () {
         };
 
         $.post("/register-and-broadcast-node", newNodeData, (data) => {
+            console.log("inside post to /reg&Broad", data)
             $("#connect_message").text(data.note).fadeOut(4000)
+            $(".curr_node").addClass("curr_node_highlight")
+            $(".curr_node").append(`<p class="your_node">Your network address</p>`)
+            $(".curr_node").append(data.currNode)
+            data.otherNodes.forEach(node => $(".other_nodes").append(`<div class="other_node">${node}</div>`))
         });
 
         $("#add_node").val("");
@@ -42,6 +47,7 @@ $(document).ready(function () {
         };
 
         $.post("/transaction/broadcast", transData, (data) => {
+            console.log("following post /transaction/broadcast", data)
             $("#transaction_message").text(data.note).fadeOut(4000);
         });
 

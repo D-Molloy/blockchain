@@ -8,6 +8,14 @@
 #parallax_image {
     height: 300px;
 }
+/* transact */
+.network_nodes, .other_nodes{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+
 
 .block_button{
     background-color: var(--lightBlue)

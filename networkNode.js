@@ -205,7 +205,9 @@ app.post("/register-and-broadcast-node", function(req, res) {
         //not doing anything with the data, we want to do the next step in the endpoint - sending a message to the node sending the request
         .then(data => {
             res.json({
-                note: "New node registered with network successfully."
+                note: "New node registered with network successfully.",
+                otherNodes: bitcoin.networkNodes,
+                currNode: bitcoin.currentNodeUrl
             })
         })
         .catch(err => console.log(err))
