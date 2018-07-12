@@ -9,12 +9,21 @@
     height: 300px;
 }
 /* transact */
-.network_nodes, .other_nodes{
+.network_nodes{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
 }
-
+/*    STYLE NODE DIVS! */
+/* .your_node{
+    margin-top: 
+} */
+.other_node{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
 
 
 .block_button{

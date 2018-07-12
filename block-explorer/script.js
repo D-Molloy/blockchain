@@ -14,7 +14,8 @@ $(document).ready(function () {
 
     // Connect Tab
     $("#submit_node").click(function () {
-
+        $(".network_nodes").empty()
+        
         const newNodeData = {
             "newNodeUrl": $("#add_node").val().trim()
         };
@@ -22,10 +23,8 @@ $(document).ready(function () {
         $.post("/register-and-broadcast-node", newNodeData, (data) => {
             console.log("inside post to /reg&Broad", data)
             $("#connect_message").text(data.note).fadeOut(4000)
-            $(".curr_node").addClass("curr_node_highlight")
-            $(".curr_node").append(`<p class="your_node">Your network address</p>`)
-            $(".curr_node").append(data.currNode)
-            data.otherNodes.forEach(node => $(".other_nodes").append(`<div class="other_node">${node}</div>`))
+            $(".network_nodes").append(`<div><p class="your_node">Your network address</p>${data.currNode}</div>`)
+            data.otherNodes.forEach(node => $(".network_nodes").append(`<div class="other_node">${node}</div>`))
         });
 
         $("#add_node").val("");
