@@ -14,26 +14,29 @@ $(document).ready(function () {
 
     // Connect Tab
     $("#submit_node").click(function () {
-        $(".network_nodes").empty()
-        
-        const newNodeData = {
-            "newNodeUrl": $("#add_node").val().trim()
-        };
+        if (!$("#add_node").val().trim().includes("http://localhost")) {
+            $("#connect_message").text("Please enter an active node address.").fadeOut(4000)
+        } else {
+            $(".network_nodes").empty()
 
-        $.post("/register-and-broadcast-node", newNodeData, (data) => {
-            console.log("inside post to /reg&Broad", data)
-            $("#connect_message").text(data.note).fadeOut(4000)
-            $(".network_nodes").append(`<div><p class="your_node">Your network address</p>${data.currNode}</div>`)
-            data.otherNodes.forEach(node => $(".network_nodes").append(`<div class="other_node">${node}</div>`))
-        });
+            const newNodeData = {
+                "newNodeUrl": $("#add_node").val().trim()
+            };
 
-        $("#add_node").val("");
+            $.post("/register-and-broadcast-node", newNodeData, (data) => {
+                $("#connect_message").text(data.note).fadeOut(4000)
+                $(".network_nodes").append(`<div><p class="your_node">Your network address</p>${data.currNode}</div>`)
+                data.otherNodes.forEach(node => $(".network_nodes").append(`<div class="other_node">${node}</div>`))
+            });
+
+            $("#add_node").val("");
+        }
     });
 
-////////////////////////////
-//////
-//////          SHOW COMPLETE TRANSACTION
-///  Make sure transaction complete message is showing
+    ////////////////////////////
+    //////
+    //////          SHOW COMPLETE TRANSACTION
+    ///  Make sure transaction complete message is showing
 
 
 
@@ -201,59 +204,59 @@ $(document).ready(function () {
     // END View Tab
 
     // /address/:address
-        // returns
-        // data: {
-        //     addressBalance: (int)
-        //     addressTransactions: [{amount: (string), sender, recipient, transactionId }]
-        // }
+    // returns
+    // data: {
+    //     addressBalance: (int)
+    //     addressTransactions: [{amount: (string), sender, recipient, transactionId }]
+    // }
     // /transaction/:transactionId
-        // data {
-        //     block {
-        //         hash
-        //         indexnonce
-        //         previousBlockHash
-        //         timestamp
-        //         transactions: [ {amount, sender, recipient, transId}]
-        //     }
-        //     transaction {
-        //         amount
-        //         recipient
-        //         sender
-        //         transactionId
-        //     }
-        // }
+    // data {
+    //     block {
+    //         hash
+    //         indexnonce
+    //         previousBlockHash
+    //         timestamp
+    //         transactions: [ {amount, sender, recipient, transId}]
+    //     }
+    //     transaction {
+    //         amount
+    //         recipient
+    //         sender
+    //         transactionId
+    //     }
+    // }
     // /block/:blockHash
-        //data {
-        //     block {
-        //         hash
-        //         index
-        //         nonce
-        //         previousBlockHash
-        //         timestamp
-        //         transactions: [ {amount, sender, recipient, transId}]
-        //}
+    //data {
+    //     block {
+    //         hash
+    //         index
+    //         nonce
+    //         previousBlockHash
+    //         timestamp
+    //         transactions: [ {amount, sender, recipient, transId}]
+    //}
 
-    const displayAddress = (data, node)=> {
+    const displayAddress = (data, node) => {
         $("#search_results").empty();
         console.log("inside displayAddress", data)
         $("#search_results").append(`<h4>Results:</h4>`)
         $("#search_results").append(`<div class="node_data"><p>Displaying data for node: ${node}</p></div>`)
-///////////////
-///   FINISH ADDING data 
+        ///////////////
+        ///   FINISH ADDING data 
     }
 
 
     // SEARCH TAB
-    $(".search_buttons").click(function(event) {
+    $(".search_buttons").click(function (event) {
         const type = $(this).data("value");
         const parameter = $(`#${type}`).val()
         // console.log(`/${type}/${parameter}`);
 
         $.get(`/${type}/${parameter}`)
-        .then((data)=> type === "address" ? displayAddress(data, parameter) : type === "transaction" ? console.log("transaction", data) : console.log("block", data))
-        .catch(data=> {
-            $("#search_results").append(`<h4>Results:</h4>`)
-            $("#search_results").append("<p>No information found.  Please check your search parameters.</p>")
-        })
+            .then((data) => type === "address" ? displayAddress(data, parameter) : type === "transaction" ? console.log("transaction", data) : console.log("block", data))
+            .catch(data => {
+                $("#search_results").append(`<h4>Results:</h4>`)
+                $("#search_results").append("<p>No information found.  Please check your search parameters.</p>")
+            })
     })
 });
