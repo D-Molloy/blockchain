@@ -16,17 +16,19 @@ $(document).ready(function () {
     $("#submit_node").click(function () {
         $("#connect_message").empty().show()
         if (!$("#add_node").val().trim().includes("http://localhost:300")) {
-            $("#connect_message").text("Please enter an active node address.").fadeOut(4000)
+            $("#connect_message").append(`<p>Please enter an active node address.</p>`).css("color", "red").fadeOut(4000)
+
         } else {
+            
             $(".network_nodes, .connect_title").empty()
             $("#connect_message").empty().show()
-
+            $("#connect_node_area").addClass("blue_border")
             const newNodeData = {
                 "newNodeUrl": $("#add_node").val().trim()
             };
 
             $.post("/register-and-broadcast-node", newNodeData, (data) => {
-                $("#connect_message").text(data.note).fadeOut(4000)
+                $("#connect_message").text(data.note).css("color", "black").fadeOut(4000)
                 $(".connect_title").append(`<p>Current Network Nodes:</p>`)
                 $(".network_nodes").append(`<div class="your_node"><p class="your_node_address">${data.currNode}</p><p class="your_node_title">(You)</p></div>`)
                 data.otherNodes.forEach(node => $(".network_nodes").append(`<div class="other_node">${node}</div>`))
@@ -40,11 +42,23 @@ $(document).ready(function () {
     //////
     //////          SHOW COMPLETE TRANSACTION
     ///  Make sure transaction complete message is showing
+    // validate inputs
 
 
 
     //  Transaction Tab
     $("#submit_trans").click(() => {
+        const transAmount = $("#create_amount").val().trim()
+        const isNum = /^\d+$/.test(transAmount)
+        const transData = {}
+
+        if (isNum) {
+            transData.amount = isNum
+        } else{
+            //append an error msg to the to a div
+        }
+        ///  repeat for sender and recipient
+
         const transData = {
             amount: parseInt($("#create_amount").val().trim()),
             sender: $("#create_sender").val().trim(),

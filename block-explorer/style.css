@@ -11,9 +11,28 @@
 
 
 /* connect */
-#connect_node_area {
+.blue_border {
     border: 1px solid var(--lightBlue)
 }
+
+
+#connect_node_area{
+    margin-bottom: 20px;
+}
+
+.connect_results{
+    margin-bottom: 0px;
+}
+
+.connect_message_div{
+    height:50px;
+}
+#connect_message{
+    margin-top: 0;
+    height: 25px;
+    font-size: 20px;
+}
+
 .network_nodes{
     width: 100%;
     display: flex;
@@ -49,6 +68,9 @@
     align-items: center;
 }
 
+.your_node, .other_node {
+    margin-bottom: 10px;
+}
 
 .block_button{
     background-color: var(--lightBlue)
