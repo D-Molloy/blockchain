@@ -8,21 +8,45 @@
 #parallax_image {
     height: 300px;
 }
-/* transact */
+
+
+/* connect */
+#connect_node_area {
+    border: 1px solid var(--lightBlue)
+}
 .network_nodes{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    margin: 0px !important;
 }
-/*    STYLE NODE DIVS! */
-/* .your_node{
-    margin-top: 
-} */
-.other_node{
+
+.your_node{
+    border: 3px dashed var(--darkBlue);
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
+    padding: 10px 20px;
+    
+}
+
+.your_node_address{
+    margin: 0;
+}
+
+.your_node_title{
+    margin: 0; 
+}
+
+
+.other_node {
+    border: 2px solid var(--blue);
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 

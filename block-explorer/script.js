@@ -14,10 +14,12 @@ $(document).ready(function () {
 
     // Connect Tab
     $("#submit_node").click(function () {
-        if (!$("#add_node").val().trim().includes("http://localhost")) {
+        $("#connect_message").empty().show()
+        if (!$("#add_node").val().trim().includes("http://localhost:300")) {
             $("#connect_message").text("Please enter an active node address.").fadeOut(4000)
         } else {
-            $(".network_nodes").empty()
+            $(".network_nodes, .connect_title").empty()
+            $("#connect_message").empty().show()
 
             const newNodeData = {
                 "newNodeUrl": $("#add_node").val().trim()
@@ -25,7 +27,8 @@ $(document).ready(function () {
 
             $.post("/register-and-broadcast-node", newNodeData, (data) => {
                 $("#connect_message").text(data.note).fadeOut(4000)
-                $(".network_nodes").append(`<div><p class="your_node">Your network address</p>${data.currNode}</div>`)
+                $(".connect_title").append(`<p>Current Network Nodes:</p>`)
+                $(".network_nodes").append(`<div class="your_node"><p class="your_node_address">${data.currNode}</p><p class="your_node_title">(You)</p></div>`)
                 data.otherNodes.forEach(node => $(".network_nodes").append(`<div class="other_node">${node}</div>`))
             });
 
