@@ -67,10 +67,15 @@
 		<!-- CONNECT -->
 		<div id="connect" class="col s12">
 			<h3>Connect Nodes to the Blockchain Network</h3>
+			<p class="tab_descrip">One of the pillars of blockchain technology is that it (the blockchain) is hosted on a <b><em>decentralized</em></b> network of nodes.  These nodes each have a copy of the blockchain, and whenever new transactions are made or blocks mined on a node, these changes audited and securely broadcast to every other node in the network where the local copies of the chain are updated.</p>
+			<p class="tab_descrip">
+			After entering a node URL and clicking the [Add Node] button, a POST request is made to this nodes <kbd>/register-and-broadcast-node</kbd> route and the new node is added to this servers blockchain <kbd>networkNodes</kbd> property (as long as it doesn't exist). Then a POST request is made to every network node's <kbd>/register-node</kbd> route to add/register the new network node url to that nodes networkNodes array.  Once the rest of the network has been updated with the new node URL, a final POST request is made to the new node's <kbd>/register-nodes-bulk</kbd> route so that the new node is aware of all the other nodes URLs.
+			</p>
+			<p class="tab_descrip">In order to connect your node to another node, be sure that you have started another node server by entering <kbd>npm run node_[SERVER NUMBER]</kbd> (node_1 through node_5 are setup by default) in a new terminal.  Once that is running, enter the server address below and click [Add Node]. Once you're done adding nodes, it's time to move to the 2-Transact tab to make some transactions!</p>
 			<div class="row connect_input_div">
 				<form class="col s12">
-					<div class="row">
-						<div class="input-field col s10">
+					<div class="row connect_form">
+						<div class="input-field col s10 connect_form_input">
 							<input placeholder="e.g. http://localhost:3002" id="add_node" type="text" class="validate">
 							<label for="add_node">Network Node You Want To Add:</label>
 							<a class="waves-effect waves-light btn block_button" id="submit_node">Add Node</a>

@@ -19,7 +19,7 @@ $(document).ready(function () {
             $("#connect_message").append(`<p>Please enter an active node address.</p>`).css("color", "red").fadeOut(4000)
 
         } else {
-            
+
             $(".network_nodes, .connect_title").empty()
             $("#connect_message").empty().show()
             $("#connect_node_area").addClass("blue_border")
@@ -38,41 +38,62 @@ $(document).ready(function () {
         }
     });
 
-    ////////////////////////////
-    //////
-    //////          SHOW COMPLETE TRANSACTION
-    ///  Make sure transaction complete message is showing
-    // validate inputs
-
 
 
     //  Transaction Tab
     $("#submit_trans").click(() => {
+        $("#transaction_message").empty()
         const transAmount = $("#create_amount").val().trim()
         const isNum = /^\d+$/.test(transAmount)
-        const transData = {}
-
-        if (isNum) {
-            transData.amount = isNum
-        } else{
-            //append an error msg to the to a div
-        }
-        ///  repeat for sender and recipient
-
         const transData = {
-            amount: parseInt($("#create_amount").val().trim()),
-            sender: $("#create_sender").val().trim(),
-            recipient: $("#create_recip").val().trim()
+            amount: null,
+            recipient: null,
+            sender: null
         };
 
-        $.post("/transaction/broadcast", transData, (data) => {
-            console.log("following post /transaction/broadcast", data)
-            $("#transaction_message").text(data.note).fadeOut(4000);
-        });
 
-        $("#create_amount").val("");
-        $("#create_sender").val("");
-        $("#create_recip").val("");
+        if (isNum) {
+            transData.amount = parseInt($("#create_amount").val().trim())
+        } else {
+            $("#transaction_message").append("<div>Please enter a valid number (e.g. 50).</div>").css({
+                "color": "red"
+            });
+        }
+
+        if ($("#create_sender").val().trim()) {
+            transData.sender = $("#create_sender").val().trim()
+        } else {
+            $("#transaction_message").append("<div>Please enter a valid sender name (e.g. Bob).</div>").css({
+                "color": "red"
+            });
+        }
+
+        if ($("#create_recip").val().trim()) {
+            transData.recipient = $("#create_recip").val().trim()
+        } else {
+            $("#transaction_message").append("<div>Please enter a valid recipient name (e.g. Betty).</div>").css({
+                "color": "red"
+            });
+        }
+
+    
+        let transComplete = true;
+        for (let i in transData) {
+            if (transData[i] === null) {
+                transComplete = false
+                return;
+            }
+        }
+
+        if (transComplete) {
+            $.post("/transaction/broadcast", transData, (data) => {
+                console.log("following post /transaction/broadcast", data)
+                $("#transaction_message").text(data.note).fadeOut(4000);
+                $("#create_amount").val("");
+                $("#create_sender").val("");
+                $("#create_recip").val("");
+            });
+        }
     })
 
     // Mine Tab

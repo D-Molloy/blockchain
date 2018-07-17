@@ -166,7 +166,7 @@ app.post("/receive-new-block", function(req, res){
 ///     BLOCK REGISTRATION ROUTES
 
 // register a node and broadcast that node to the whole network by making a POST request to /register-node (below)
-// 1 - this route is hit by a non-network node that wants to be added with the data of the new URL.  It is registered on the node that received it, and then broadcast to the other network nodes via the /register-node route
+// 1 - this route is hit ti a non-network node that wants to be added with the data of the new URL.  It is registered on the node that received it, and then broadcast to the other network nodes via the /register-node route
 app.post("/register-and-broadcast-node", function(req, res) {
     const newNodeUrl = req.body.newNodeUrl;
     // Registering the request URL of the new node into the this node's networkNodes array if it doesn't already exist
