@@ -1,7 +1,7 @@
 /* dark blue 005C91 */
-
 /* light blue 006496*/
-
+/* font-family: 'Open Sans', sans-serif;
+font-family: 'Montserrat', sans-serif; */
 :root {
     --darkBlue: #005C91;
     --blue: #367a9c;
@@ -12,7 +12,23 @@
     height: 300px;
 }
 
+h3{
+    font-size: 4rem;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* should use .tab_descrip instead */
+p{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+}
+
+.input-field>label{
+    font-size: 1.5rem;
+}
+
 kbd {
+    
     background-color: rgb(224, 224, 224);
 }
 

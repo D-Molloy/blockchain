@@ -13,6 +13,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+
+	<!-- Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Montserrat|Open+Sans" rel="stylesheet">
 	<!-- Custom stylesheet -->
 	<link rel="stylesheet" href="style.css">
 </head>
@@ -39,11 +42,9 @@
 				<li class="tab col s2">
 					<a href="#mine">3 - Mine</a>
 				</li>
+
 				<li class="tab col s2">
-					<a href="#view" id="view_tab">4 - View</a>
-				</li>
-				<li class="tab col s2">
-					<a href="#search">Search</a>
+					<a href="#search">Consensus/Search</a>
 				</li>
 			</ul>
 		</div>
@@ -68,7 +69,7 @@
 		<!-- These nodes each have a copy of the blockchain, and whenever new transactions are made or blocks mined on a node, these changes are audited and securely broadcast to every other node in the network where the local copies of the chain are updated. -->
 		<div id="connect" class="col s12">
 			<h3>Connect Nodes to the Blockchain Network</h3>
-			<p class="tab_descrip">One of the pillars of blockchain technology is that it (the blockchain) is hosted on a <b><em>decentralized</em></b> network of nodes. So now we need to create the network that will host our blockchain.</p>
+			<p class="tab_descrip">One of the pillars of blockchain technology is that it (the blockchain) is hosted on a <b><em>decentralized</em></b> network of nodes. Each node on keeps a record of the current blockchain, and the nodes communicate with each other to ensure the integrity of the data on the other nodes. Now we need to create the network that will host our blockchain.</p>
 			<p class="tab_descrip">
 			After entering a node URL and clicking the [Add Node] button, a POST request is made to this nodes <kbd>/register-and-broadcast-node</kbd> endpoint and the new node is added to this servers blockchain <kbd>networkNodes</kbd> property (as long as it doesn't exist). Then a POST request is made to every network node's <kbd>/register-node</kbd> route to add/register the new network node url to that nodes networkNodes array.  Once the rest of the network has been updated with the new node URL, a final POST request is made to the new node's <kbd>/register-nodes-bulk</kbd> route so that the new node is aware of all the other nodes URLs.
 			</p>
@@ -81,7 +82,6 @@
 						<div class="input-field col s5 connect_form_input">
 							<input placeholder="e.g. http://localhost:3002" id="add_node" type="text" class="validate">
 							<label for="add_node">Network Node You Want To Add:</label>
-
 						</div>
 						<div class="col s5" id="button_div"><a class="waves-effect waves-light btn block_button" id="submit_node">Add Node</a></div>
 					</div>
@@ -92,7 +92,6 @@
 					<div id="connect_message"></div>
 				</div>
 				<div class="col s12" id="connect_node_area">
-
 					<div class="connect_title"></div>
 					<div class="network_nodes row"></div>
 				</div>
@@ -103,7 +102,7 @@
 		<div id="transact" class="col s12">
 			<h3>Create a Transaction</h3>
 			<p class="tab_descrip">The blockchain that we're working with if built to store records of 'monetary' transactions, similar to how the Bitcoin Blockchain operates.  Transactions are simply records of how much (in our case) a sender sends to a recipient.</p>
-			<p class="tab_descrip">Once you fill in the form below and click [Make Transaction] button, this transaction is given a Universally Unique Identifier (UUID) and added to your nodes <kbd>pendingTransactions</kbd> array.  Then, your node will iterate over its <kbd>networkNodes</kbd> array and make POST requests to each node's <kbd>/transaction</kbd> end point which adds the transaction to that node's <kbd>pendingTransactions</kbd> array ensuring data stays up-to-date across the network.</p>
+			<p class="tab_descrip">Once you fill in the form below and click [Make Transaction] button, this transaction is given a Universally Unique Identifier (UUID) and added to your node's <kbd>pendingTransactions</kbd> array.  Then, your node will iterate over its <kbd>networkNodes</kbd> array and make POST requests to each node's <kbd>/transaction</kbd> end point which adds the transaction to that node's <kbd>pendingTransactions</kbd> array ensuring data stays up-to-date across the network.</p>
 			<p class="tab_descrip">The new transaction will remain a pending transaction until a new block is mined in 3-MINE at which point it will be cemented as part of the blockchain.</p>
 			<div class="row">
 				<form class="col s12">
@@ -130,6 +129,18 @@
 		<!-- MINE -->
 		<div id="mine" class="col s12">
 			<h3>Mine a new Block</h3>
+
+			<p>
+				- Get request to /mine
+				- find the last block in the chain, it's hash property
+				- add the pending transaction to the new blocks list of transactions
+				- perform the Proof of Work using the previous blocks hash and the newly created block data to get the nonce (this is the workhorse of the mining process - 100ks iterations to get the nonce)
+				- `.hashblock` - the nonce is hashed with the previousblocks hash and the current block data to the new blocks hashed
+				-- `createNewBlock` - then the nonce, previousblockHash and the block hash are used to create the new block.
+				-  with the new block created, it is broadcast to the `/receive-new-block` endpoint
+				-  `/receive-new-block` checks the hash of the last block on store on this copy of the chain along with index of the last block and compare that to the previousblock hash and index of the new block data.  If they match, the block is added to the chain array and the pending transactions are cleared.  
+				-- As is the case in real life, the node that does the work to mine the new block is given a tip for its effort.  In our situation, the node is given 12.5 bitcoins?  Chickens?  ...12.5 somethings.  This tip is broadcast to the rest of the network and will be the first pendingtransaction waiting to be added to the chain once the next block is minded
+			</p>
 			<div id="mine_message">
 			</div>
 			<div id="block_div">
@@ -139,6 +150,13 @@
 			<a class="waves-effect waves-light btn block_button" id="mine_block">Mine a new block</a>
 			<div id="mine_message"></div>
 		</div>
+		
+		<!-- VIEW -->
+		<div id="consensus" class="col s12">
+				<h3>Check the validity of the chain</h3>
+				<div id="view_content"></div>
+			</div>
+
 
 		<!-- VIEW -->
 		<div id="view" class="col s12">
