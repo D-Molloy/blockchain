@@ -1,67 +1,79 @@
 /* dark blue 005C91 */
+
 /* light blue 006496*/
-:root{
+
+:root {
     --darkBlue: #005C91;
     --blue: #367a9c;
     --lightBlue: #33B5E0;
 }
+
 #parallax_image {
     height: 300px;
 }
 
-kbd{
+kbd {
     background-color: rgb(224, 224, 224);
 }
+
+#button_div {
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
 /* connect */
+
 .blue_border {
     border: 1px solid var(--lightBlue)
 }
 
-.connect_form, .connect_form_input{
+.connect_form,
+.connect_form_input {
     margin-bottom: 0px;
 }
-#connect_node_area{
+
+#connect_node_area {
     margin-bottom: 20px;
 }
 
-.connect_results{
+.connect_results {
     margin-bottom: 0px;
 }
 
-.connect_message_div{
-    height:50px;
+.connect_message_div {
+    height: 50px;
 }
-#connect_message{
+
+#connect_message {
     margin-top: 0;
     height: 25px;
     font-size: 20px;
 }
 
-.network_nodes{
+.network_nodes {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     margin: 0px !important;
 }
 
-.your_node{
+.your_node {
     border: 3px dashed var(--darkBlue);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 10px 20px;
-    
 }
 
-.your_node_address{
+.your_node_address {
     margin: 0;
 }
 
-.your_node_title{
-    margin: 0; 
+.your_node_title {
+    margin: 0;
 }
-
 
 .other_node {
     border: 2px solid var(--blue);
@@ -72,20 +84,20 @@ kbd{
     align-items: center;
 }
 
-.your_node, .other_node {
+.your_node,
+.other_node {
     margin-bottom: 10px;
 }
 
-.block_button{
+.block_button {
     background-color: var(--lightBlue)
 }
 
-.block_button:hover{
+.block_button:hover {
     background-color: var(--darkBlue)
 }
 
-
-.pend_trans_div{
+.pend_trans_div {
     border: 1px solid var(--darkBlue);
 }
 
@@ -94,8 +106,9 @@ kbd{
     display: flex;
     justify-content: center;
     font-size: 25px;
-    color:white;
+    color: white;
 }
+
 .block_title {
     margin: 0;
 }
@@ -111,15 +124,15 @@ div.collapsible-header {
     background-color: var(--darkBlue);
 }
 
-.search_div{
+.search_div {
     display: flex;
     justify-content: space-around;
     border: 1px solid var(--blue);
 }
+
 #search_button_div {
     height: 115px;
     display: flex;
     justify-content: start;
     align-items: center;
 }
-
