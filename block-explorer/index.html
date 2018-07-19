@@ -29,22 +29,27 @@
 	<div class="row container">
 		<!-- TABS -->
 		<div class="col s12">
-			<ul class="tabs">
-				<li class="tab col s2">
+			<ul class="tabs" id="tab_list">
+				<li class="tab col">
 					<a class="active" href="#home">Home</a>
 				</li>
-				<li class="tab col s2">
+				<li class="tab col">
 					<a href="#connect">1 - Connect</a>
 				</li>
-				<li class="tab col s2">
+				<li class="tab col">
 					<a href="#transact">2 - Transact</a>
 				</li>
-				<li class="tab col s2">
+				<li class="tab col">
 					<a href="#mine">3 - Mine</a>
 				</li>
-
-				<li class="tab col s2">
-					<a href="#search">Consensus/Search</a>
+				<li class="tab col">
+					<a href="#view" id="view_tab">4 - View</a>
+				</li>
+				<li class="tab col">
+					<a href="#consensus" id="consensus_tab">5 - Consensus</a>
+				</li>
+				<li class="tab col">
+					<a href="#search">Search</a>
 				</li>
 			</ul>
 		</div>
@@ -139,7 +144,7 @@
 				-- `createNewBlock` - then the nonce, previousblockHash and the block hash are used to create the new block.
 				-  with the new block created, it is broadcast to the `/receive-new-block` endpoint
 				-  `/receive-new-block` checks the hash of the last block on store on this copy of the chain along with index of the last block and compare that to the previousblock hash and index of the new block data.  If they match, the block is added to the chain array and the pending transactions are cleared.  
-				-- As is the case in real life, the node that does the work to mine the new block is given a tip for its effort.  In our situation, the node is given 12.5 bitcoins?  Chickens?  ...12.5 somethings.  This tip is broadcast to the rest of the network and will be the first pendingtransaction waiting to be added to the chain once the next block is minded
+				-- As is the case in real life, the node that does the work to mine the new block is given a tip for its effort.  In our situation, the node is given 12.5 bitcoins?  Chickens?  ...12.5 somethings.  This tip is broadcast to the rest of the network and will be the first pendingtransaction waiting to be added to the chain once the next block
 			</p>
 			<div id="mine_message">
 			</div>
@@ -150,17 +155,16 @@
 			<a class="waves-effect waves-light btn block_button" id="mine_block">Mine a new block</a>
 			<div id="mine_message"></div>
 		</div>
-		
-		<!-- VIEW -->
-		<div id="consensus" class="col s12">
-				<h3>Check the validity of the chain</h3>
-				<div id="view_content"></div>
-			</div>
-
 
 		<!-- VIEW -->
 		<div id="view" class="col s12">
 			<h3>View the Entire Blockchain</h3>
+			<div id="view_content"></div>
+		</div>
+
+		<!-- VIEW -->
+		<div id="consensus" class="col s12">
+			<h3>Check Blockchain Validity</h3>
 			<div id="view_content"></div>
 		</div>
 
