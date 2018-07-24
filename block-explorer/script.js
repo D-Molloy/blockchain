@@ -16,7 +16,7 @@ $(document).ready(function () {
     $("#submit_node").click(function () {
         $("#connect_message").empty().show()
         if (!$("#add_node").val().trim().includes("http://localhost:300")) {
-            $("#connect_message").append(`<p>Please enter an active node address.</p>`).css("color", "red").fadeOut(4000)
+            $("#connect_message").append(`<p>Please enter an active node address.</p>`).css("color", "red").fadeOut(4000);
 
         } else {
 
@@ -76,7 +76,7 @@ $(document).ready(function () {
             });
         }
 
-    
+
         let transComplete = true;
         for (let i in transData) {
             if (transData[i] === null) {
@@ -190,9 +190,14 @@ $(document).ready(function () {
             $("#view_currentNode_title").text(data.currentNodeUrl);
 
             //  Add current network nodes
-            data.networkNodes.forEach(node => {
-                $("#view_network_nodes").append(` [ ${node} ] `);
-            });
+            if (data.networkNodes.length !== 0) {
+                data.networkNodes.forEach(node => {
+                    $("#view_network_nodes").append(` [ ${node} ] `);
+                });
+            } else {
+                $("#view_network_nodes").append(`None.  Add more nodes by starting a new server in your terminal and then connect the new node to the network on the "1 - Connect" tab.`);
+            }
+
 
 
             //  Add collapsible block elements 
@@ -202,14 +207,18 @@ $(document).ready(function () {
 
 
             //add pending transaction data
-            data.pendingTransactions.forEach(trans => {
-                $("#pending_trans").append(`<div class="pend_trans_div">
-                <p>Amount: <span>${trans.amount}</span></p>
-                <p>Sender: <span>${trans.sender}</span></p>
-                <p>Recipient: <span>${trans.recipient}</span></p>
-                <p>Transaction ID: <span>${trans.transactionId}</span></p>
-                </div>`);
-            });
+            if (data.pendingTransactions.length !== 0) {
+                data.pendingTransactions.forEach(trans => {
+                    $("#pending_trans").append(`<div class="pend_trans_div">
+                    <p>Amount: <span>${trans.amount}</span></p>
+                    <p>Sender: <span>${trans.sender}</span></p>
+                    <p>Recipient: <span>${trans.recipient}</span></p>
+                    <p>Transaction ID: <span>${trans.transactionId}</span></p>
+                    </div>`);
+                })
+            } else {
+                $("#pending_trans").append('<p id="no_pend"><em>No Pending Transactions</em></p>')
+            };
 
             // adding transaction data to each block
             const transArray = [];
@@ -241,51 +250,29 @@ $(document).ready(function () {
     })
     // END View Tab
 
-    // /address/:address
-    // returns
-    // data: {
-    //     addressBalance: (int)
-    //     addressTransactions: [{amount: (string), sender, recipient, transactionId }]
-    // }
-    // /transaction/:transactionId
-    // data {
-    //     block {
-    //         hash
-    //         indexnonce
-    //         previousBlockHash
-    //         timestamp
-    //         transactions: [ {amount, sender, recipient, transId}]
-    //     }
-    //     transaction {
-    //         amount
-    //         recipient
-    //         sender
-    //         transactionId
-    //     }
-    // }
-    // /block/:blockHash
-    //data {
-    //     block {
-    //         hash
-    //         index
-    //         nonce
-    //         previousBlockHash
-    //         timestamp
-    //         transactions: [ {amount, sender, recipient, transId}]
-    //}
 
+    // CONSENSUS TAB
+    $('#consensus_tab').click(()=> $('#consensus_message').empty())
+    $('#consensus_button').click(() => {
+        $.get('/consensus', (data) => {
+            console.log(data)
+            $('#consensus_message').text(data.note)
+        })
+    })
+
+    // SEARCH TAB
     const displayAddress = (data, node) => {
         $("#search_results").empty();
         console.log("inside displayAddress", data)
         $("#search_results").append(`<h4>Results:</h4>`)
         $("#search_results").append(`<div class="node_data"><p>Displaying data for node: ${node}</p></div>`)
-        ///////////////
-        ///   FINISH ADDING data 
+
     }
 
 
-    // SEARCH TAB
+
     $(".search_buttons").click(function (event) {
+        $("#search_results").empty();
         const type = $(this).data("value");
         const parameter = $(`#${type}`).val()
         // console.log(`/${type}/${parameter}`);

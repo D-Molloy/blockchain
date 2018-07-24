@@ -110,15 +110,26 @@ kbd {
 .other_node {
     margin-bottom: 10px;
 }
+/* Transact */
+#submit_trans{
+    margin-top: 14px;
+    margin-left: 12px;
+}
+#transaction_message {
+    font-size: 20px;
+}
+
 
 /* Mine */
-#mine_button_div{
+#mine_button_div,
+#consensus_button_div{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center
 }
 
+/* VIEW */
 #block_div {
     margin-top: 30px;
 }
@@ -160,6 +171,17 @@ div.collapsible-header {
     background-color: var(--darkBlue);
 }
 
+#no_pend{
+    font-size: 15px;
+}
+/* CONSENSUS */
+#consensus_button{
+    margin-bottom: 30px;
+}
+#consensus_message{
+    font-size: 20px;
+}
+/* SEARCH */
 .search_div {
     display: flex;
     justify-content: space-around;

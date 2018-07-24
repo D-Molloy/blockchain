@@ -3,7 +3,7 @@
 
 <head>
 	<title>Block Explorer</title>
-
+	<link rel="icon" type="image/png" href="http://asair.org/images/multimedia.png">
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	    crossorigin="anonymous"></script>
 	<!-- Compiled and minified CSS -->
@@ -71,10 +71,10 @@
 		</div>
 
 		<!-- CONNECT -->
-		<!-- These nodes each have a copy of the blockchain, and whenever new transactions are made or blocks mined on a node, these changes are audited and securely broadcast to every other node in the network where the local copies of the chain are updated. -->
+		
 		<div id="connect" class="col s12">
-			<h3>Connect Nodes to the Blockchain Network</h3>
-			<p class="tab_descrip">One of the pillars of blockchain technology is that it (the blockchain) is hosted on a <b><em>decentralized</em></b> network of nodes.  When you start a the first node server in the newtork, a <kbd>Genesis block</kbd> is created.  Each node keeps a record of the current blockchain, and the nodes communicate with each other to ensure the integrity of the data on the other nodes. Now we need to create the network that will host our blockchain.</p>
+			<h3>Connect Nodes to the Network</h3>
+			<p class="tab_descrip">One of the pillars of blockchain technology is that it (the blockchain) is hosted on a <b><em>decentralized</em></b> network of nodes.  When you start the first node server in the newtork, a <kbd>Genesis block</kbd> is created signifying the start of the chain.  Each node keeps a record of the current blockchain, and the nodes communicate with each other to ensure the integrity of the data on the other nodes. Now we need to create the network that will host our blockchain.</p>
 			<p class="tab_descrip">
 			After entering a node URL and clicking the [Add Node] button, a POST request is made to this nodes <kbd>/register-and-broadcast-node</kbd> endpoint and the new node is added to this servers blockchain <kbd>networkNodes</kbd> property (as long as it doesn't exist). Then a POST request is made to every network node's <kbd>/register-node</kbd> route to add/register the new network node url to that nodes networkNodes array.  Once the rest of the network has been updated with the new node URL, a final POST request is made to the new node's <kbd>/register-nodes-bulk</kbd> route so that the new node is aware of all the other nodes URLs.
 			</p>
@@ -108,7 +108,7 @@
 			<h3>Create a Transaction</h3>
 			<p class="tab_descrip">The blockchain that we're working with if built to store records of 'monetary' transactions, similar to how the Bitcoin Blockchain operates.  Transactions are simply records of how much (in our case) a sender sends to a recipient.</p>
 			<p class="tab_descrip">Once you fill in the form below and click [Make Transaction] button, this transaction is given a Universally Unique Identifier (UUID) and added to your node's <kbd>pendingTransactions</kbd> array.  Then, your node will iterate over its <kbd>networkNodes</kbd> array and make POST requests to each node's <kbd>/transaction</kbd> end point which adds the transaction to that node's <kbd>pendingTransactions</kbd> array ensuring data stays up-to-date across the network.</p>
-			<p class="tab_descrip">The new transaction will remain a pending transaction until a new block is mined in `3 - MINE` at which point it will be cemented as part of the blockchain.</p>
+			<p class="tab_descrip">Feel free to add multiple transactions. The new transactions will remain a pending transaction until a new block is mined in `3 - MINE` at which point it will be cemented as part of the blockchain.</p>
 			<div class="row">
 				<form class="col s12">
 					<div class="row form_row">
@@ -117,11 +117,11 @@
 							<label for="create_amount">Amount you would like to send:</label>
 						</div>
 						<div class="input-field col s6">
-							<input placeholder="Enter a unique identifier for your address" id="create_sender" type="text" class="validate">
+							<input placeholder="Enter a unique identifier for your address (e.g. your name)" id="create_sender" type="text" class="validate">
 							<label for="create_sender">Sender:</label>
 						</div>
 						<div class="input-field col s6">
-							<input placeholder="Enter a unique for your recipient's address" id="create_recip" type="text" class="validate">
+							<input placeholder="Enter a unique for your recipient's address  (e.g. your friend's name)" id="create_recip" type="text" class="validate">
 							<label for="create_recip">Recipient:</label>
 						</div>
 						<a class="waves-effect waves-light btn block_button" id="submit_trans">Make Transaction</a>
@@ -156,19 +156,27 @@
 		<!-- VIEW -->
 		<div id="view" class="col s12">
 			<h3>View the Entire Blockchain</h3>
+			<p class="tab_descrip">In order to see this node's current copy of the blockchain, a GET request is made to this node's <kbd>/blockchain</kbd> endpoint, which sends back all the information stored on this node:  the blockchain, the pending transactions, the current node's URL,  and a list of every other node URL in the network.</p>
+			<br>
 			<div id="view_content"></div>
 		</div>
 
-		<!-- VIEW -->
+		<!-- CONSENSUS -->
 		<div id="consensus" class="col s12">
 			<h3>Check Blockchain Validity</h3>
-			<p>-  a request is sent to every node's <kbd>/blockchain</kbd> which will return that nodes copy of the blockchain</p>
-			<p>The length of this Node's blockchain is recorded as the Maximum length for the blockchain</p>
+			<p class="tab_descrip">The nodes in the blockchain network need a way of discerning whether or not the data in their copy of the blockchain is valid. This is accomplished using what is referred to as a <kbd>Consensus Algorithm</kbd>.   This blockchain's Consensus Algorithm utitlizes the <kbd>Longest Chain Rule</kbd>, which means that one node's copy of the blockchain is compared to every other node's copy of the blockchain.  If the other node's copy of the chain is longer than the node that made the initial request, then the longer chain replaces the node's chain and its pending transactions are replaced with those of the longest chain.  If there is no new longest chain (meaning your node is has the longest chain) OR if there is a new longest chain and that chain is not valid, then the node's current chain will not be replaced.  If there is a new longest chain AND the chain is valid, then the current node's chain will be updated and replaced with the new chain longest.  The blockchain is determined to be valid by calling the <kbd>chainIsValid</kbd> method on the blockchain data structure.  This method starts of by comparing the previousBlockHash property of the currentblock to the previous block's hash making sure that they match down the chain.  Then, the current block is rehashed to ensure that it is valid.  Finally, the properties of the Genesis Block are checked to ensure they have the correct values.  If all of these checks pass, then the chain is deemed valid and is note replaced</p>
+			<p class="tab_descrip">By clicking the [Check Chain Validity] button below, a GET request is made to <kbd>/consensus</kbd> checking the validity of this node's chain.</p>
+
+			<div id="consensus_button_div">
+				<a class="waves-effect waves-light btn block_button" id="consensus_button">Check Chain Validity</a>
+				<div id="consensus_message"></div>
+				<div id="consensus_block"></div>
+			</div>
 		</div>
 
 		<!-- SEARCH -->
 		<div id="search" class="col s12">
-			<h3>Search for a specific hash, block, or transaction</h3>
+			<h3>Search for a specific node, block, or transaction</h3>
 
 			<div class="row">
 				<form class="col s12">
@@ -177,7 +185,7 @@
 							<div class="col s6">
 								<p class="search_type_title">Search for details on a specific network node</p>
 								<label for="search_node">Enter the Sender or Recipient name below:</label>
-								<input placeholder="" id="address" type="text" class="validate">
+								<input placeholder="e.g. Bob" id="address" type="text" class="validate">
 							</div>
 							<div class="col s4" id="search_button_div">
 								<a class="waves-effect waves-light btn block_button search_buttons" data-value="address" id="submit_trans">Search Node</a>

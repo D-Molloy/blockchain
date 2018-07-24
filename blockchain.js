@@ -153,9 +153,6 @@ Blockchain.prototype.chainIsValid = function(blockchain){
         //reference `currentBlockData` in the /mine route for info on the object we're passing in as 2nd arg
         const blockHash = this.hashBlock(previousBlock["hash"], { transactions: currentBlock["transactions"], index: currentBlock["index"]}, currentBlock["nonce"]);
         if(blockHash.substring(0,4) !== "0000") validChain = false;
-
-        console.log("previousBlockHash == ", previousBlock['hash'])
-        console.log("currentBlockHash == ", currentBlock['hash']);
        
     }
 
