@@ -74,11 +74,11 @@
 		<!-- These nodes each have a copy of the blockchain, and whenever new transactions are made or blocks mined on a node, these changes are audited and securely broadcast to every other node in the network where the local copies of the chain are updated. -->
 		<div id="connect" class="col s12">
 			<h3>Connect Nodes to the Blockchain Network</h3>
-			<p class="tab_descrip">One of the pillars of blockchain technology is that it (the blockchain) is hosted on a <b><em>decentralized</em></b> network of nodes. Each node on keeps a record of the current blockchain, and the nodes communicate with each other to ensure the integrity of the data on the other nodes. Now we need to create the network that will host our blockchain.</p>
+			<p class="tab_descrip">One of the pillars of blockchain technology is that it (the blockchain) is hosted on a <b><em>decentralized</em></b> network of nodes.  When you start a the first node server in the newtork, a <kbd>Genesis block</kbd> is created.  Each node keeps a record of the current blockchain, and the nodes communicate with each other to ensure the integrity of the data on the other nodes. Now we need to create the network that will host our blockchain.</p>
 			<p class="tab_descrip">
 			After entering a node URL and clicking the [Add Node] button, a POST request is made to this nodes <kbd>/register-and-broadcast-node</kbd> endpoint and the new node is added to this servers blockchain <kbd>networkNodes</kbd> property (as long as it doesn't exist). Then a POST request is made to every network node's <kbd>/register-node</kbd> route to add/register the new network node url to that nodes networkNodes array.  Once the rest of the network has been updated with the new node URL, a final POST request is made to the new node's <kbd>/register-nodes-bulk</kbd> route so that the new node is aware of all the other nodes URLs.
 			</p>
-			<p class="tab_descrip">In order to connect your node to another node, be sure that you have started another node server by entering <kbd>npm run node_[SERVER NUMBER]</kbd> (node_1 through node_5 are setup by default) in a new terminal.  Once that is running, enter the server address below and click [Add Node]. Once you're done adding nodes, it's time to move to the 2-TRANSACT tab to make some transactions!</p>
+			<p class="tab_descrip">In order to connect your node to another node, be sure that you have started another node server by entering <kbd>npm run node_[SERVER NUMBER]</kbd> (node_1 through node_5 are setup by default) in a new terminal.  Once that is running, enter the server address below and click [Add Node]. Once you're done adding nodes, it's time to move to the `2 - TRANSACT` tab to make some transactions!</p>
 			<p class="tab_descrip"></p>
 			<div class="row connect_input_div">
 				<form class="col s12">
@@ -108,7 +108,7 @@
 			<h3>Create a Transaction</h3>
 			<p class="tab_descrip">The blockchain that we're working with if built to store records of 'monetary' transactions, similar to how the Bitcoin Blockchain operates.  Transactions are simply records of how much (in our case) a sender sends to a recipient.</p>
 			<p class="tab_descrip">Once you fill in the form below and click [Make Transaction] button, this transaction is given a Universally Unique Identifier (UUID) and added to your node's <kbd>pendingTransactions</kbd> array.  Then, your node will iterate over its <kbd>networkNodes</kbd> array and make POST requests to each node's <kbd>/transaction</kbd> end point which adds the transaction to that node's <kbd>pendingTransactions</kbd> array ensuring data stays up-to-date across the network.</p>
-			<p class="tab_descrip">The new transaction will remain a pending transaction until a new block is mined in 3-MINE at which point it will be cemented as part of the blockchain.</p>
+			<p class="tab_descrip">The new transaction will remain a pending transaction until a new block is mined in `3 - MINE` at which point it will be cemented as part of the blockchain.</p>
 			<div class="row">
 				<form class="col s12">
 					<div class="row form_row">
@@ -134,26 +134,23 @@
 		<!-- MINE -->
 		<div id="mine" class="col s12">
 			<h3>Mine a new Block</h3>
-
-			<p>
-				- Get request to /mine
-				- find the last block in the chain, it's hash property
-				- add the pending transaction to the new blocks list of transactions
-				- perform the Proof of Work using the previous blocks hash and the newly created block data to get the nonce (this is the workhorse of the mining process - 100ks iterations to get the nonce)
-				- `.hashblock` - the nonce is hashed with the previousblocks hash and the current block data to the new blocks hashed
-				-- `createNewBlock` - then the nonce, previousblockHash and the block hash are used to create the new block.
-				-  with the new block created, it is broadcast to the `/receive-new-block` endpoint
-				-  `/receive-new-block` checks the hash of the last block on store on this copy of the chain along with index of the last block and compare that to the previousblock hash and index of the new block data.  If they match, the block is added to the chain array and the pending transactions are cleared.  
-				-- As is the case in real life, the node that does the work to mine the new block is given a tip for its effort.  In our situation, the node is given 12.5 bitcoins?  Chickens?  ...12.5 somethings.  This tip is broadcast to the rest of the network and will be the first pendingtransaction waiting to be added to the chain once the next block
-			</p>
-			<div id="mine_message">
+			<p class="tab_descrip">In order to permanently add all of the pending transactions to our Blockchain ledger, we need to mine a new block, adding a new link to blockchain. </p>
+			<p class="tab_descrip">When you click on the [Mine a New Block] button, a GET request is made to your node's <kbd>/mine</kbd> route.  Inside that route, the last block in the chain and its hash are noted, and the data for the new block is setup (pendingTransactions are added as the new blocks transactions and a block ID is added).</p>
+			<p class="tab_descrip">The hash of the current last block and the new block data are used in to create the <kbd>Proof of Work (PoW)</kbd>. The <kbd>Proof of Work</kbd> is the workhorse of the blockchain and the reason blockchain technology is so secure. </p>
+			<p class="tab_descrip">The <kbd>Proof of Work</kbd> is executed thousands of times (can be anywhere from 10k-100k times) in search of the correct <kbd>nonce</kbd>, making adding fraudulent data to the chain next to impossible.  First, the nonce is declared and assigned a value of `0`. The nonce counts how many time the data needs to be hashed before our defined criteria is met.  The block is hashed for the first time using the previous block's hash, the new block data and the nonce. Next, a while loop is used to continually increment the nonce and rehash the new block's data until the hash starts with four zeroes.  Once the hash starts with four zeroes, the correct nonce is returned.</p>
+			<p class="tab_descrip">Now that the correct nonce is known, it is used along with the previous block's hash and the new block data in order to get the new block's hash. All of this data (as a string) is hashed using a SHA-256 hash algorithm.  The new block hash serves as an identifier for the new block, but also contains all the data used to create the hash.</p>
+			<p class="tab_descrip">The nonce, new block hash, and the hash of the current last block are all used to create the new block. The new block is an object and given the following properties: an index (its location in the change), timestamp, list of transactions (these were the pending transactions), the nonce, the new hash for this block, and the hash of the previous block (chaining the new block to the rest of the chain).  Your nodes list of pending transactions is then cleared and the new block is added to your nodes chain array.</p>
+			<p class="tab_descrip">Now that the new block has been added to the chain on your node, the rest of the network nodes need to be updated.  POST requests are made to each node's <kbd>/receive-new-block</kbd> route.  Here, the data in the new block is compared to the node's last block of the chain.  If the new block has the correct previous block hash AND the correct index, then the new block will be added to that node's chain and the list of pending transactions will be cleared.  If either the previous block hash or the index are wrong, the new block will be rejected.</p>
+			<p class="tab_descrip">Finally, as is the case in 'real' blockchains, when a node mines a new block, it receives payment for the effort of mining a new block.  This 'tip' is broadcasted to your node's POST <kbd>/transaction/broadcast</kbd> route where it is added to your block's pending transactions array, and the tip transaction is also broadcast to the rest of the network via a POST request to each node's <kbd>/transaction</kbd> endpoint.</p>
+			<div id="mine_button_div">
+				<a class="waves-effect waves-light btn block_button" id="mine_block">Mine a New Block</a>
+				<div id="mine_message"></div>
 			</div>
+					
 			<div id="block_div">
 				<ul class="collapsible popout animated" id="block_display">
 				</ul>
 			</div>
-			<a class="waves-effect waves-light btn block_button" id="mine_block">Mine a new block</a>
-			<div id="mine_message"></div>
 		</div>
 
 		<!-- VIEW -->
@@ -165,7 +162,8 @@
 		<!-- VIEW -->
 		<div id="consensus" class="col s12">
 			<h3>Check Blockchain Validity</h3>
-			<div id="view_content"></div>
+			<p>-  a request is sent to every node's <kbd>/blockchain</kbd> which will return that nodes copy of the blockchain</p>
+			<p>The length of this Node's blockchain is recorded as the Maximum length for the blockchain</p>
 		</div>
 
 		<!-- SEARCH -->

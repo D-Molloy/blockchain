@@ -111,6 +111,18 @@ kbd {
     margin-bottom: 10px;
 }
 
+/* Mine */
+#mine_button_div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center
+}
+
+#block_div {
+    margin-top: 30px;
+}
+
 .block_button {
     background-color: var(--lightBlue)
 }
@@ -119,8 +131,10 @@ kbd {
     background-color: var(--darkBlue)
 }
 
+
 .pend_trans_div {
     border: 1px solid var(--darkBlue);
+    padding: 0px 10px;
 }
 
 .block_title_div {

@@ -80,7 +80,7 @@ app.get("/mine", function (req, res) {
     const nonce = bitcoin.proofOfWork(previousBlockHash, currentBlockData);
     const blockHash = bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce);
     const newBlock = bitcoin.createNewBlock(nonce, previousBlockHash, blockHash);
-
+   
     //broadcasting the new block to the network
     const requestPromises = [];
     bitcoin.networkNodes.forEach(networkNodeUrl => {
@@ -153,12 +153,7 @@ app.post("/receive-new-block", function(req, res){
 
 })
 
-///  CONSENSUS ALGORITHM -an algorithm that allows the network to agree upon what the correct data in the chain is
-//  if something bad/malicious happens on a specific transaction in a chain, you need a way to confirm the data
-// provide for a way to compare one node with all other nodes on the network
-// This method implements the LONGEST CHAIN RULE - . looks at one node's blockchain and compares the lengths of the chains on other nodes.  If the requester is longer than the longest chain in the network, than the requesters block is replaced by the long one
-//  longest one has the most work in it - the whole network contributed to it
-//  Used by the bitcoin blockchain network
+
 
 
 
