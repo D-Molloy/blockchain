@@ -262,6 +262,10 @@ $(document).ready(function () {
 
 
     // SEARCH TAB
+    $('#search_tab').click(function(){
+        $('#address, #transaction, #block').val('');
+        $("#search_results").empty();
+    })
     const displayAddress = (data, node) => {
         $("#search_results").empty();
         console.log("inside displayAddress", data)
@@ -297,11 +301,11 @@ $(document).ready(function () {
 
     }
 
-    $(".search_buttons").click(function (event) {
+    $(".search_buttons").click(function() {
         $("#search_results").empty();
         const type = $(this).data("value");
         const parameter = $(`#${type}`).val()
-        // console.log(`/${type}/${parameter}`);
+
         $('#address, #transaction, #block').empty();
         $.get(`/${type}/${parameter}`)
             .then((data) => type === "address" ? displayAddress(data, parameter) : type === "transaction" ? transIdSearch(data, parameter) : hashSearch(data, parameter))
