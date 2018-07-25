@@ -294,7 +294,7 @@ app.get("/consensus", function(req, res){
         // if there is no new longest chain (ie the current chain is the longest)  || if there IS a new longest chain && the longest chain IS NOT valid) then we DON't want to replace the chain on this node
         if(!newLongestChain || (newLongestChain && !bitcoin.chainIsValid(newLongestChain))) {
             res.json({
-                note: "Current Chain is valid has not been replaced.",
+                note: "Current Chain is valid and has not been replaced.",
                 chain: bitcoin.chain
             })
             //ELSE IF there IS a new longest chain && that chain IS valid, then we want to replace the chain on the current node with the newLongestChain 
@@ -340,7 +340,7 @@ app.get("/address/:address", function (req, res){
     })
 })
 
-app.get("/", function(req, res){
+app.get("*", function(req, res){
     res.sendFile("./block-explorer/index.html", { root: __dirname});
 })
 

@@ -42,7 +42,7 @@ $(document).ready(function () {
 
     //  Transaction Tab
     $("#submit_trans").click(() => {
-        $("#transaction_message").empty()
+        $("#transaction_message").empty().show()
         const transAmount = $("#create_amount").val().trim()
         const isNum = /^\d+$/.test(transAmount)
         const transData = {
@@ -99,6 +99,7 @@ $(document).ready(function () {
     // Mine Tab
 
     $("#mine_block").click(() => {
+        $('#block_display').empty();
         $.get("/mine", data => {
             $("#block_display").empty();
             console.log(data)
@@ -123,13 +124,14 @@ $(document).ready(function () {
                                         </div>
                                     </li>`);
 
-            for (let transaction of block.transactions)
+            for (let transaction of block.transactions){
                 $(`#transactions`).append(`<div class="trans_block">
                                 <p>Amount: <span>${transaction.amount}</span></p>
                                 <p>Recipient: <span>${transaction.recipient}</span></p>
                                 <p>Sender: <span>${transaction.sender}</span></p>
                                 <p>Transaction ID: <span>${transaction.transactionId}</span></p>
                                 </div>`)
+            }
 
         })
         makeCollapsible();
@@ -229,9 +231,6 @@ $(document).ready(function () {
             let transData = []
             for (let [i, block] of transArray.entries()) {
                 if (block.length !== 0) {
-                    // for(let j=0; j< block.length; j++){
-                    //     $(`#transactions-${i+1}`).append(block[j].amount)
-                    // }
                     for (let transaction of block) {
                         $(`#transactions-${i+1}`).append(`<div class="trans_block">
                                             <p>Amount: <span>${transaction.amount}</span></p>
@@ -252,7 +251,7 @@ $(document).ready(function () {
 
 
     // CONSENSUS TAB
-    $('#consensus_tab').click(()=> $('#consensus_message').empty())
+    $('#consensus_tab').click(() => $('#consensus_message').empty())
     $('#consensus_button').click(() => {
         $.get('/consensus', (data) => {
             console.log(data)
@@ -260,27 +259,53 @@ $(document).ready(function () {
         })
     })
 
+
+
     // SEARCH TAB
     const displayAddress = (data, node) => {
         $("#search_results").empty();
         console.log("inside displayAddress", data)
         $("#search_results").append(`<h4>Results:</h4>`)
-        $("#search_results").append(`<div class="node_data"><p>Displaying data for node: ${node}</p></div>`)
-
+        $("#search_results").append(`<div><p>Displaying data for node: ${node}</p><p>Node Balance: ${data.addressData.addressBalance}</p><div class="node_data"></div></div>`)
+        data.addressData.addressTransactions.forEach(transaction => {
+            $('.node_data').append(`<div id="trans_div"><p>Amount:  ${transaction.amount}</p> <p>Sender:  ${transaction.sender}</p><p>Recipient:  ${transaction.recipient}</p><p>Transaction ID:  ${transaction.transactionId}</p></div>`)
+        });
     }
 
+    const transIdSearch = (data, parameter) => {
+        $("#search_results").empty();
+        $("#search_results").append(`<h4>Results:</h4>`)
+        $("#search_results").append(`<p>Displaying transaction: ${parameter}</p>`)
+        $("#search_results").append(`<div id="trans_div"><p>Transaction located in block: ${data.block.index}</p><p>Amount:  ${data.transaction.amount}</p> <p>Sender:  ${data.transaction.sender}</p><p>Recipient:  ${data.transaction.recipient}</p><p>Transaction ID:  ${data.transaction.transactionId}</p></div>`)
+    }
 
+    const hashSearch = (data, parameter) => {
+        let block = data.block
+        $("#search_results").empty();
+        $("#search_results").append(`<h4>Results:</h4>`)
+        $("#search_results").append(`<p>Displaying block for hash: ${parameter}</p>`)
+        $("#search_results").append(`<div id="trans_div"><p>Block Hash: ${block.hash}</p><p>Previous Block Hash: ${block.previousBlockHash}</p><p>Nonce: ${block.nonce}</p><p>Timestamp: ${block.timestamp}</p><p>Transactions in this block:</p><div class="transaction_div" id="transactions"></div>`)
+
+        for (let transaction of block.transactions){
+            $(`#transactions`).append(`<div class="trans_block">
+                            <p>Amount: <span>${transaction.amount}</span></p>
+                            <p>Recipient: <span>${transaction.recipient}</span></p>
+                            <p>Sender: <span>${transaction.sender}</span></p>
+                            <p>Transaction ID: <span>${transaction.transactionId}</span></p>
+                            </div>`)
+        }
+
+    }
 
     $(".search_buttons").click(function (event) {
         $("#search_results").empty();
         const type = $(this).data("value");
         const parameter = $(`#${type}`).val()
         // console.log(`/${type}/${parameter}`);
-
+        $('#address, #transaction, #block').empty();
         $.get(`/${type}/${parameter}`)
-            .then((data) => type === "address" ? displayAddress(data, parameter) : type === "transaction" ? console.log("transaction", data) : console.log("block", data))
+            .then((data) => type === "address" ? displayAddress(data, parameter) : type === "transaction" ? transIdSearch(data, parameter) : hashSearch(data, parameter))
             .catch(data => {
-                $("#search_results").append(`<h4>Results:</h4>`)
                 $("#search_results").append("<p>No information found.  Please check your search parameters.</p>")
             })
     })

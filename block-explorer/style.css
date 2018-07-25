@@ -117,6 +117,7 @@ kbd {
 }
 #transaction_message {
     font-size: 20px;
+    height: 50px;
 }
 
 
@@ -128,6 +129,11 @@ kbd {
     justify-content: center;
     align-items: center
 }
+
+#mine_message{
+    font-size: 20px;
+}
+
 
 /* VIEW */
 #block_div {
@@ -143,7 +149,7 @@ kbd {
 }
 
 
-.pend_trans_div {
+.pend_trans_div, #trans_div {
     border: 1px solid var(--darkBlue);
     padding: 0px 10px;
 }
@@ -174,6 +180,8 @@ div.collapsible-header {
 #no_pend{
     font-size: 15px;
 }
+
+
 /* CONSENSUS */
 #consensus_button{
     margin-bottom: 30px;
@@ -181,12 +189,15 @@ div.collapsible-header {
 #consensus_message{
     font-size: 20px;
 }
+
+
 /* SEARCH */
 .search_div {
     display: flex;
     justify-content: space-around;
     border: 1px solid var(--blue);
 }
+
 
 #search_button_div {
     height: 115px;
