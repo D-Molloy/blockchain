@@ -18,12 +18,18 @@ font-family: 'Montserrat', sans-serif; */
     flex-wrap: wrap;
 }
 
-h3{
+h1, h3{
     font-size: 4rem;
     font-family: 'Montserrat', sans-serif;
 }
 
-/* should use .tab_descrip instead */
+h1{
+    font-size: 70px;
+    color: var(--lightBlue);
+    -webkit-text-stroke: 1px rgb(255, 255, 255);
+    text-shadow: -3px 3px #fff;
+}
+
 p{
     font-family: 'Open Sans', sans-serif;
     font-size: 18px;
@@ -45,6 +51,29 @@ label{
 #button_div {
     height: 60px;
     display: flex;
+    align-items: center;
+}
+
+#brand_div{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Home */
+#home_container{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#home_right{
+    display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -212,4 +241,20 @@ div.collapsible-header {
     display: flex;
     justify-content: start;
     align-items: center;
+}
+
+/* FOOTER */
+#copyright_div{
+    background-color: #005C91;
+}
+
+#copyright_div_copy{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+#copyright_copy {
+    width: 100%;
+    text-align: center;
+    color: white;
 }
