@@ -113,11 +113,11 @@ $(document).ready(function () {
                                         </div>
                                         <div class="collapsible-body">
                                             <div class="block_body">
-                                                <p>Block Hash: ${block.hash}</p>
-                                                <p>Previous Block Hash: ${block.previousBlockHash}</p>
-                                                <p>Nonce: ${block.nonce}</p>
-                                                <p>Timestamp: ${block.timestamp}</p>
-                                                <p>Transactions in this block:</p>
+                                                <p><b>Block Hash:  </b>${block.hash}</p>
+                                                <p><b>Previous Block Hash:  </b>${block.previousBlockHash}</p>
+                                                <p><b>Nonce:  </b>${block.nonce}</p>
+                                                <p><b>Timestamp:  </b>${block.timestamp}</p>
+                                                <p><b>Transactions in this block:  </b></p>
                                                 <div class="transaction_div" id="transactions"></div>
                                             </div>
                                         
@@ -126,10 +126,10 @@ $(document).ready(function () {
 
             for (let transaction of block.transactions){
                 $(`#transactions`).append(`<div class="trans_block">
-                                <p>Amount: <span>${transaction.amount}</span></p>
-                                <p>Recipient: <span>${transaction.recipient}</span></p>
-                                <p>Sender: <span>${transaction.sender}</span></p>
-                                <p>Transaction ID: <span>${transaction.transactionId}</span></p>
+                                <p><b>Amount:  </b><span>${transaction.amount}</span></p>
+                                <p><b>Recipient:  </b><span>${transaction.recipient}</span></p>
+                                <p><b>Sender:  </b><span>${transaction.sender}</span></p>
+                                <p><b>Transaction ID:  </b><span>${transaction.transactionId}</span></p>
                                 </div>`)
             }
 
@@ -158,11 +158,11 @@ $(document).ready(function () {
                     <div class="collapsible-body">
                    
                         <div class="block_body">
-                            <p>Block Hash: ${block.hash}</p>
-                            <p>Previous Block Hash: ${block.previousBlockHash}</p>
-                            <p>Nonce: ${block.nonce}</p>
-                            <p>Timestamp: ${block.timestamp}</p>
-                            <p>Transactions in this block:</p>
+                            <p><b>Block Hash:  </b>${block.hash}</p>
+                            <p><b>Previous Block Hash:  </b>${block.previousBlockHash}</p>
+                            <p><b>Nonce:  </b>${block.nonce}</p>
+                            <p><b>Timestamp:  </b>${block.timestamp}</p>
+                            <p><b>Transactions in this block:</b></p>
                             <div class="transaction_div" id="transactions-${block.index}"></div>
                         </div>
                     
@@ -171,15 +171,15 @@ $(document).ready(function () {
             })
 
             $("#view_content").append(`<div class="col s6">
-                <p>Current Node URL:
+                <p><b>Current Node URL:</b>
                     <div id="view_currentNode_title">
                     </div>
-                    <p>Other Nodes in the Network:</p>
+                    <p><b>Other Nodes in the Network:</b></p>
                     <div id="view_network_nodes"></div>
                 </p>
                 </div>
                 <div class="col s6">
-                    <p>Pending Transactions:</p>
+                    <p><b>Pending Transactions:</b></p>
                     <div id="pending_trans"></div>
                 </div>
                 <div class="row">
@@ -200,26 +200,23 @@ $(document).ready(function () {
                 $("#view_network_nodes").append(`None.  Add more nodes by starting a new server in your terminal and then connect the new node to the network on the "1 - Connect" tab.`);
             }
 
-
-
             //  Add collapsible block elements 
             for (let block of blockData) {
                 $("#block_table").append(block);
             }
 
-
             //add pending transaction data
             if (data.pendingTransactions.length !== 0) {
                 data.pendingTransactions.forEach(trans => {
                     $("#pending_trans").append(`<div class="pend_trans_div">
-                    <p>Amount: <span>${trans.amount}</span></p>
-                    <p>Sender: <span>${trans.sender}</span></p>
-                    <p>Recipient: <span>${trans.recipient}</span></p>
-                    <p>Transaction ID: <span>${trans.transactionId}</span></p>
+                    <p><b>Amount:  </b><span>${trans.amount}</span></p>
+                    <p><b>Sender:  </b><span>${trans.sender}</span></p>
+                    <p><b>Recipient:  </b><span>${trans.recipient}</span></p>
+                    <p><b>Transaction ID:  </b><span>${trans.transactionId}</span></p>
                     </div>`);
                 })
             } else {
-                $("#pending_trans").append('<p id="no_pend"><em>No Pending Transactions</em></p>')
+                $("#pending_trans").append('<p id="no_pend">No Pending Transactions</p>')
             };
 
             // adding transaction data to each block
@@ -233,10 +230,10 @@ $(document).ready(function () {
                 if (block.length !== 0) {
                     for (let transaction of block) {
                         $(`#transactions-${i+1}`).append(`<div class="trans_block">
-                                            <p>Amount: <span>${transaction.amount}</span></p>
-                                            <p>Recipient: <span>${transaction.recipient}</span></p>
-                                            <p>Sender: <span>${transaction.sender}</span></p>
-                                            <p>Transaction ID: <span>${transaction.transactionId}</span></p>
+                                            <p><b>Amount:  </b><span>${transaction.amount}</span></p>
+                                            <p><b>Recipient:  </b><span>${transaction.recipient}</span></p>
+                                            <p><b>Sender:  </b><span>${transaction.sender}</span></p>
+                                            <p><b>Transaction ID:  </b><span>${transaction.transactionId}</span></p>
                                             </div>`)
                     }
 
@@ -268,34 +265,34 @@ $(document).ready(function () {
     })
     const displayAddress = (data, node) => {
         $("#search_results").empty();
-        console.log("inside displayAddress", data)
         $("#search_results").append(`<h4>Results:</h4>`)
-        $("#search_results").append(`<div><p>Displaying data for node: ${node}</p><p>Node Balance: ${data.addressData.addressBalance}</p><div class="node_data"></div></div>`)
+        $("#search_results").append(`<div><p>Displaying data for node:  <b>${node}</b></p><p>Node Balance:  <b>${data.addressData.addressBalance}</b></p><div class="node_data"></div></div>`)
         data.addressData.addressTransactions.forEach(transaction => {
-            $('.node_data').append(`<div id="trans_div"><p>Amount:  ${transaction.amount}</p> <p>Sender:  ${transaction.sender}</p><p>Recipient:  ${transaction.recipient}</p><p>Transaction ID:  ${transaction.transactionId}</p></div>`)
+            $('.node_data').append(`<div class="trans_block"><p><b>Amount:  </b> ${transaction.amount}</p> <p><b>Sender:   </b> ${transaction.sender}</p><p><b>Recipient:  </b> ${transaction.recipient}</p><p><b>Transaction ID:  </b> ${transaction.transactionId}</p></div>`)
         });
     }
 
     const transIdSearch = (data, parameter) => {
         $("#search_results").empty();
         $("#search_results").append(`<h4>Results:</h4>`)
-        $("#search_results").append(`<p>Displaying transaction: ${parameter}</p>`)
-        $("#search_results").append(`<div id="trans_div"><p>Transaction located in block: ${data.block.index}</p><p>Amount:  ${data.transaction.amount}</p> <p>Sender:  ${data.transaction.sender}</p><p>Recipient:  ${data.transaction.recipient}</p><p>Transaction ID:  ${data.transaction.transactionId}</p></div>`)
+        $("#search_results").append(`<p>Displaying transaction: <b>${parameter}</b></p>`)
+        $("#search_results").append(`<div class="trans_block"><p><b>Transaction located in block:</b>  ${data.block.index}</p><p><b>Amount:  </b> ${data.transaction.amount}</p> <p><b>Sender:  </b> ${data.transaction.sender}</p><p><b>Recipient:  </b> ${data.transaction.recipient}</p><p><b>Transaction ID:  </b> ${data.transaction.transactionId}</p></div>`)
     }
 
     const hashSearch = (data, parameter) => {
         let block = data.block
+        console.log(data)
         $("#search_results").empty();
         $("#search_results").append(`<h4>Results:</h4>`)
-        $("#search_results").append(`<p>Displaying block for hash: ${parameter}</p>`)
-        $("#search_results").append(`<div id="trans_div"><p>Block Hash: ${block.hash}</p><p>Previous Block Hash: ${block.previousBlockHash}</p><p>Nonce: ${block.nonce}</p><p>Timestamp: ${block.timestamp}</p><p>Transactions in this block:</p><div class="transaction_div" id="transactions"></div>`)
+        $("#search_results").append(`<p>Displaying block for hash:  <b>${parameter}</b></p>`)
+        $("#search_results").append(`<div id="trans_div"><p><b>Transaction located in block:</b>  ${block.index}</p><p><b>Block Hash:  </b> ${block.hash}</p><p><b>Previous Block Hash:  </b> ${block.previousBlockHash}</p><p><b>Nonce:  </b> ${block.nonce}</p><p><b>Timestamp:  </b> ${block.timestamp}</p><p><b>Transactions in this block:  </b></p><div class="transaction_div" id="transactions"></div>`)
 
         for (let transaction of block.transactions){
             $(`#transactions`).append(`<div class="trans_block">
-                            <p>Amount: <span>${transaction.amount}</span></p>
-                            <p>Recipient: <span>${transaction.recipient}</span></p>
-                            <p>Sender: <span>${transaction.sender}</span></p>
-                            <p>Transaction ID: <span>${transaction.transactionId}</span></p>
+                            <p><b>Amount:  </b><span> ${transaction.amount}</span></p>
+                            <p><b>Recipient:  </b><span> ${transaction.recipient}</span></p>
+                            <p><b>Sender:  </b><span> ${transaction.sender}</span></p>
+                            <p><b>Transaction ID: </b><span> ${transaction.transactionId}</span></p>
                             </div>`)
         }
 
