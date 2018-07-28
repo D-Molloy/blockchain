@@ -237,9 +237,8 @@ div.collapsible-header {
 
 
 #search_button_div {
-    height: 115px;
     display: flex;
-    justify-content: start;
+    justify-content: center;
     align-items: center;
 }
 

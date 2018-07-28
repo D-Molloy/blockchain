@@ -96,8 +96,6 @@ Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, n
     const hash = sha256(dataAsString)
 
     return hash
-
-
 }
 
 
@@ -134,9 +132,10 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
     return nonce;
 }
 
-// used in the CONSENSUS ALGORITHM 
+
 
 //  returns whether the blockchain arg is valid or not - do that by comparingthe hashes of the current blocks `hash` and `previousBlockHash`
+// Major part of the CONSENSUS ALGORITHM 
 Blockchain.prototype.chainIsValid = function(blockchain){
     let validChain = true;
     //start at `i` = 1 because we check the genesis block down below
@@ -184,9 +183,7 @@ Blockchain.prototype.getBlock = function(blockHash){
     this.chain.forEach(block => {
         if (block.hash === blockHash) correctBlock = block;
     })
-
     //   if correctBlock === null then the searched hash doesnt exist on the chain'
-
     return correctBlock;
 }
 
