@@ -8,11 +8,10 @@ function Blockchain() {
     // all the block created/mined will be stored here
     this.chain = [];
     
-    //holds all new transactions created before they are put in a block or mine
+    //holds all new transactions created before they are put in a block
     // people will be making a lot of transactions
     //every time a newTransaction is created it will be pushed into this array
     // these transactions are set in stone until a new block is mined (created)
-    //newTransactions are just pending transactions that have not been validated yet
     // once validate they are added to the blockchain when a new block is created
     // when createNewTransaction is invoked, the newTransaction is push into the pendingTransactions array
     // then when createNewBlock is invoked, the pendingTransactions are added to the chain permanently
@@ -98,14 +97,15 @@ Blockchain.prototype.hashBlock = function(previousBlockHash, currentBlockData, n
     return hash
 }
 
+// PROOF OF WORK
 
 //one of the main reasons blockchain is so secure is because of the proofOfWork
 // this is the most taxing part of the block chain because it needs to be run so many times
 //  lots of work to get the right nonce, easy to verify that its correct once we have it
-// PoW - every block needs to be added the chain legitimately and it needs to have the correct transactions and data
+//  every block needs to be added the chain legitimately and it needs to have the correct transactions and data
 //  every time we create a new block, we first must make sure its legitimate by mining it through proof PoW
-//previousBlockHash that tries to generate a specific hash - in our case it starts with 4 zeroes
-// secures the blockchain because in order to generate the correct hash, we need to run hashblock MANY (100s/1000s) times in order to get the create hash, meaning try to re-mine or change a hash is next to impossible.  They also need to go back and remine and recreate every previous chain in the block
+//  previousBlockHash that tries to generate a specific hash - in our case it starts with 4 zeroes
+//  secures the blockchain because in order to generate the correct hash, we need to run hashblock MANY (100s/1000s) times in order to get the create hash, meaning try to re-mine or change a hash is next to impossible.  They also need to go back and re-mine and recreate every previous chain in the block
 Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData){
     //bitcoin.hashBlock(previousBlockHash, currentBlockData, nonce)
         // we get different hash values by changing the nonce (starting at 0), running hashblock again after incrementing nonce, until we get a hash that starts with 4 zeroes
@@ -125,8 +125,8 @@ Blockchain.prototype.proofOfWork = function(previousBlockHash, currentBlockData)
         hash = this.hashBlock(previousBlockHash, currentBlockData, nonce);
     }
 
-    // the nonce is essentially the proof
     // WHY IS THE NONCE RETURNED INSTEAD OF THE HASH?
+    // the nonce is essentially the proof
     // the nonce represents the number of time the data has to be hashed to get the 4x0s
     // THIS NUMBER IS THE SAME EVERY TIME YOU RUN THE PROOF OF WORK WITH THE SAME PARAMs
     return nonce;

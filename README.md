@@ -1,5 +1,9 @@
-# JavaScript Blockchain
-A complete blockchain prototype built in JavaScript.  The blockchain data structure is located in dev/blockchain.js and all API endpoints are in dev/networkNode.js.  Both are thoroughly commented with explanations to how everything works. **Note the block-explorer is still in development and will be overhauled
+# Blockchain-Explorer
+Blockchain Explorer is a complete blockchain prototype built in JavaScript made with the express purpose of providing a better understanding of how blockchain technology works.  User's can create network nodes, make transactions, mine new blocks (complete with a Proof of Work), view the chain, check the validity fo the chain via the Consensus Algorithm, as well as search for a specific node, transaction or block.
+
+The frontend BlockChain Explorer is built to allow users to build and interact with the blockchain, as well as explaining what is happening in each tab.
+
+The blockchain data structure is located in blockchain.js and all API endpoints are in networkNode.js.  Both are thoroughly commented with explanations to how everything works. 
 
 
 ## Clone the repo and start the network nodes:
@@ -14,44 +18,20 @@ A complete blockchain prototype built in JavaScript.  The blockchain data struct
  (new terminal) npm run node_5 
 ```
 Notes:
-* the # in node_[#] correlates to the local host # (i.e. node_1 === localhost:3001)
-* npm run node_[#] scripts have been setup to start nodes on ports 3001-3005...feel free to add more
+* start at least two nodes 
+* the # in node_[#] correlates to the localhost # (i.e. node_1 === localhost:3001)
+* npm `run node_[#]` scripts have been setup to start nodes on ports 3001-3005...feel free to add more
+* note that you can use this over a network by replacing `localhost` in the package.json scripts property
+Change the script from localhost:
+```
+"node_1": "nodemon --watch dev -e js networkNode.js 3001 http://localhost:3001",
+```
+To your network IP address:
+```
+"node_1": "nodemon --watch dev -e js networkNode.js 3001 http://000.000.000.000:3001",
+```
 
+## Open a browser tab and visit the localhost that correlates with the node (e.g. localhost:3001)
 
-## Connecting the network
-Make a POST request to `http://localhost:3001/register-and-broadcast-node` with the following data attached to the body using a tool like Postman:
-#### Example:
-```
-{
-	"newNodeUrl": "http://localhost:3002"
-}
-```
-* make additional requests with an updated "newNodeUrl" for each node you want to connect to network
+## Follow the directions in the tabs of Blockchain-Explorer
 
-## Creating Transactions
-Make a POST request to the /register-and-broadcast-node endpoint (e.g. http://localhost:3001/transaction/broadcast) on any node on the network with the following raw JSON data in the body (be sure you're sending an object with the properties "amount"/number, "sender"/any string of characters, "recipient"/any string of characters)
-#### Example:
-```
-{
-	"amount": 100,
-	"sender": "sender1",
-	"recipient": "recipient1"
-}
-```
-* change the values and make as many transactions you like and make the request to /register-and-broadcast-node from different nodes
-
-## Mining Blocks
-To add all of your new transactions to the blockchain, simply hit the /mine endpoint on any network node by typing in the following in your browsers address bar:
-#### Example:
-```
-localhost:3004/mine
-```
-* You'll see a JSON object that confirms the block was successfully mined
-
-
-## Viewing the Blockchain
-Once you've added some transactions and mined a few blocks, visit the /blockchain endpoint on any network node
-#### Example:
-```
-localhost:3004/blockchain
-```
