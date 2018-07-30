@@ -12,10 +12,11 @@ Tabs reference different routes (located in networkNode.js) and methods/properti
  cd blockchain
  npm i
  npm run node_1
- (new terminal) npm run node_2
- (new terminal) npm run node_3
- (new terminal) npm run node_4
- (new terminal) npm run node_5 
+ (in a new terminal) npm run node_2
+ ...optional...
+ (in a new terminal) npm run node_3
+ (in a new terminal) npm run node_4
+ (in a new terminal) npm run node_5 
 ```
 Notes:
 * start at least two nodes 
