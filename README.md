@@ -1,9 +1,9 @@
 # Blockchain-Explorer
-Blockchain Explorer is a complete blockchain prototype built in JavaScript made with the express purpose of providing a better understanding of how blockchain technology works.  User's can create network nodes, make transactions, mine new blocks (complete with a Proof of Work), view the chain, check the validity fo the chain via the Consensus Algorithm, as well as search for a specific node, transaction or block.
+Blockchain Explorer is a complete blockchain prototype built in JavaScript made with the express purpose of providing an easy way to understand how blockchain technology works.  User's can create network nodes, make transactions, mine new blocks (complete with a Proof of Work), view the chain, check the validity fo the chain via the Consensus Algorithm, as well as search for a specific node, transaction or block.
 
 The frontend BlockChain Explorer is built to allow users to build and interact with the blockchain, as well as explaining what is happening in each tab.
 
-The blockchain data structure is located in blockchain.js and all API endpoints are in networkNode.js.  Both are thoroughly commented with explanations to how everything works. 
+Tabs reference different routes (located in networkNode.js) and methods/properties of the Blockchain data structure (located in blockchain.js).  To get the most out of this app, please reference both files (thoroughly commented with explanations to how everything works) as you peruse the different portions of the page.
 
 
 ## 1. Clone the repo and start the network nodes:
