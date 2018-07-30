@@ -20,7 +20,7 @@ The blockchain data structure is located in blockchain.js and all API endpoints 
 Notes:
 * start at least two nodes 
 * the # in node_[#] correlates to the localhost # (i.e. node_1 === localhost:3001)
-* npm `run node_[#]` scripts have been setup to start nodes on ports 3001-3005...feel free to add more
+* npm `run node_[#]` scripts have been setup to start nodes on ports 3001-3005...feel free to add more by duplicating additional `node_[#]` scripts in the package.json
 * note that you can use this over a network by replacing `localhost` in the package.json scripts property
 Change the script from localhost:
 ```
