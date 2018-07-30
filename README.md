@@ -21,7 +21,8 @@ Notes:
 * start at least two nodes 
 * the # in node_[#] correlates to the localhost # (i.e. node_1 === localhost:3001)
 * npm `run node_[#]` scripts have been setup to start nodes on ports 3001-3005...feel free to add more by duplicating additional `node_[#]` scripts in the package.json
-* note that you can use this over a network by replacing `localhost` in the package.json scripts property
+* note that you can use this over a network by replacing `localhost` in the package.json scripts property with your network IP address:
+
 Change the script from localhost:
 ```
 "node_1": "nodemon --watch dev -e js networkNode.js 3001 http://localhost:3001",
