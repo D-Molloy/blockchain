@@ -6,7 +6,7 @@ The frontend BlockChain Explorer is built to allow users to build and interact w
 The blockchain data structure is located in blockchain.js and all API endpoints are in networkNode.js.  Both are thoroughly commented with explanations to how everything works. 
 
 
-## Clone the repo and start the network nodes:
+## 1. Clone the repo and start the network nodes:
 ```
  git clone https://github.com/D-Molloy/blockchain.git
  cd blockchain
@@ -31,7 +31,7 @@ To your network IP address:
 "node_1": "nodemon --watch dev -e js networkNode.js 3001 http://000.000.000.000:3001",
 ```
 
-## Open a browser tab and visit the localhost that correlates with the node (e.g. localhost:3001)
+## 2. Open a browser tab and visit the localhost that correlates with the node (e.g. localhost:3001)
 
-## Follow the directions in the tabs of Blockchain-Explorer
+## 3. Follow the directions in the tabs of Blockchain-Explorer
 
